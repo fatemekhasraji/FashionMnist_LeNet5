@@ -3,7 +3,7 @@
 <!--                                                         -->
 <!-- Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.   -->
 
-<Project Version="7" Minor="40" Path="C:/Users/DIGITAL-CUP/FashionMnist_LeNet5/FashionMnist_LeNet5.xpr">
+<Project Version="7" Minor="40" Path="FashionMnist_LeNet5.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
     <Option Name="Id" Val="328931f83109402ca3d8dd3e226ab5ac"/>
