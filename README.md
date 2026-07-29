@@ -9,7 +9,7 @@
 ## 📌 Project Overview
 This repository contains a full **SystemVerilog hardware accelerator for the LeNet-5 Convolutional Neural Network (CNN)**, optimized for inference on the **Fashion-MNIST** dataset. 
 
-At the core of the datapath is a customized **5x5 2D Torus Systolic Array** microkernel that accelerates General Matrix Multiplication (GEMM) using **im2col** lowering for 5x5 Convolutional layers, Fully Connected (FC) layers, and inline 2x2 Average Pooling.
+At the core of the datapath is a customized **5x5 2D Torus Systolic Array** that accelerates General Matrix Multiplication (GEMM) using **im2col** lowering for 5x5 Convolutional layers, Fully Connected (FC) layers, and inline 2x2 Average Pooling.
 
 The repository features a complete end-to-end flow:
 1. **PyTorch Model Training & Weight Quantization** (Floating-point to Q8.8 Fixed-Point conversion).
@@ -45,7 +45,7 @@ graph LR
     style ARG fill:#1e293b,stroke:#34d399,color:#fff
 ```
 
-### 2. 2D Torus Systolic Array Microkernel Datapath (`SA.sv` & `Controller.sv`)
+### 2. 2D Torus Systolic Array Datapath (`SA.sv` & `Controller.sv`)
 ```mermaid
 graph TD
     subgraph Controller_FSM["Hardware Controller (Controller.sv)"]
@@ -98,7 +98,7 @@ graph TD
     Torus_Grid -->|FINISH: Capture Product Matrix| MAT_C["Matrix_C Output 800-bit"]
 ```
 
-### 1. 2D Torus Systolic Array Microkernel (`SA.sv`)
+### 1. 2D Torus Systolic Array (`SA.sv`)
 - **Structure**: 5x5 Processing Element (PE) matrix connected in a 2D toroidal topology.
 - **Toroidal Wrapping**: Left-shift and Up-shift outputs wrap cyclically around array edges.
 - **Benefits**: Eliminates global data broadcast signals, reduces routing congestion, and increases clock frequency compared to standard global broadcast architectures.
