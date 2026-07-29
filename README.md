@@ -96,6 +96,42 @@ graph TD
     Skew_Logic -->|START: Load Registers| Torus_Grid
     Controller_FSM -->|MOVE & MULT_ADD Signals| Torus_Grid
     Torus_Grid -->|FINISH: Capture Product Matrix| MAT_C["Matrix_C Output 800-bit"]
+
+    style FSM fill:#1e293b,stroke:#38bdf8,color:#fff
+    style MAC_CTRL fill:#1e293b,stroke:#38bdf8,color:#fff
+    style MOVE_CTRL fill:#1e293b,stroke:#38bdf8,color:#fff
+    style FIN_CTRL fill:#1e293b,stroke:#38bdf8,color:#fff
+
+    style A_FLAT fill:#1e293b,stroke:#34d399,color:#fff
+    style B_FLAT fill:#1e293b,stroke:#34d399,color:#fff
+    style SKEW_A fill:#1e293b,stroke:#34d399,color:#fff
+    style SKEW_B fill:#1e293b,stroke:#34d399,color:#fff
+    style NOTE_TEMP fill:#1e293b,stroke:#34d399,color:#fff
+
+    style PE00 fill:#1e293b,stroke:#c084fc,color:#fff
+    style PE01 fill:#1e293b,stroke:#c084fc,color:#fff
+    style PE02 fill:#1e293b,stroke:#c084fc,color:#fff
+    style PE03 fill:#1e293b,stroke:#c084fc,color:#fff
+    style PE04 fill:#1e293b,stroke:#c084fc,color:#fff
+    style PE10 fill:#1e293b,stroke:#c084fc,color:#fff
+    style PE11 fill:#1e293b,stroke:#c084fc,color:#fff
+    style PE12 fill:#1e293b,stroke:#c084fc,color:#fff
+    style PE13 fill:#1e293b,stroke:#c084fc,color:#fff
+    style PE14 fill:#1e293b,stroke:#c084fc,color:#fff
+    style PE40 fill:#1e293b,stroke:#c084fc,color:#fff
+    style PE41 fill:#1e293b,stroke:#c084fc,color:#fff
+    style PE42 fill:#1e293b,stroke:#c084fc,color:#fff
+    style PE43 fill:#1e293b,stroke:#c084fc,color:#fff
+    style PE44 fill:#1e293b,stroke:#c084fc,color:#fff
+
+    style PE_IN_U fill:#1e293b,stroke:#f59e0b,color:#fff
+    style PE_IN_L fill:#1e293b,stroke:#f59e0b,color:#fff
+    style PE_OUT_D fill:#1e293b,stroke:#f59e0b,color:#fff
+    style PE_OUT_R fill:#1e293b,stroke:#f59e0b,color:#fff
+    style PE_MAC fill:#1e293b,stroke:#34d399,color:#fff
+    style PE_PROD fill:#1e293b,stroke:#34d399,color:#fff
+
+    style MAT_C fill:#1e293b,stroke:#34d399,color:#fff
 ```
 
 ### 1. 2D Torus Systolic Array (`SA.sv`)
@@ -112,7 +148,7 @@ graph TD
 - **State Machine**: Controls 5x5 matrix tile multiplication, data shifting, matrix load/store operations, and pooling modes.
 - **Multi-layer Sequencing**: Seamlessly transitions between Convolutional (im2col tiles), Pooling (2x2 spatial downsampling), and Dense (FC) layers.
 
-![Controller FSM State Diagram](img/fsm_state_diagram.svg)
+![Controller FSM State Diagram](img/fsm_state_diagram.png)
 
 ### 4. LeNet-5 Layer Specifications
 | Layer | Input Feature Map | Kernel / Operation | Output Feature Map | Activation |
