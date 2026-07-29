@@ -132,6 +132,14 @@ graph TD
     style PE_PROD fill:#1e293b,stroke:#34d399,color:#fff
 
     style MAT_C fill:#1e293b,stroke:#34d399,color:#fff
+
+    style Controller_FSM fill:#0f172a,stroke:#38bdf8,color:#fff
+    style Skew_Logic fill:#0f172a,stroke:#34d399,color:#fff
+    style Torus_Grid fill:#0f172a,stroke:#c084fc,color:#fff
+    style R0 fill:#1e293b,stroke:#c084fc,color:#fff
+    style R1 fill:#1e293b,stroke:#c084fc,color:#fff
+    style R4 fill:#1e293b,stroke:#c084fc,color:#fff
+    style PE_Module fill:#0f172a,stroke:#f59e0b,color:#fff
 ```
 
 ### 1. 2D Torus Systolic Array (`SA.sv`)
