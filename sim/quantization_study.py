@@ -89,21 +89,21 @@ def run_quantized_sim(img, weights_dict, frac_bits=8, word_bits=16):
     max_val = (1 << (word_bits - 1)) - 1
     min_val = -(1 << (word_bits - 1))
 
-    img_q = np.clip(img[None, :, :], min_val, max_val)
+    img_q = np.clip(img[None, :, :], min_val, max_val).astype(np.int64)
 
-    w_c1 = weights_dict['w_c1'].reshape(6, 25)
-    b_c1 = weights_dict['b_c1']
-    w_c2 = weights_dict['w_c2'].reshape(16, 150)
-    b_c2 = weights_dict['b_c2']
-    w_c3 = weights_dict['w_c3'].reshape(120, 400)
-    b_c3 = weights_dict['b_c3']
-    w_f1 = weights_dict['w_f1'].reshape(84, 120)
-    b_f1 = weights_dict['b_f1']
-    w_f2 = weights_dict['w_f2'].reshape(10, 84)
-    b_f2 = weights_dict['b_f2']
+    w_c1 = weights_dict['w_c1'].reshape(6, 25).astype(np.int64)
+    b_c1 = weights_dict['b_c1'].astype(np.int64)
+    w_c2 = weights_dict['w_c2'].reshape(16, 150).astype(np.int64)
+    b_c2 = weights_dict['b_c2'].astype(np.int64)
+    w_c3 = weights_dict['w_c3'].reshape(120, 400).astype(np.int64)
+    b_c3 = weights_dict['b_c3'].astype(np.int64)
+    w_f1 = weights_dict['w_f1'].reshape(84, 120).astype(np.int64)
+    b_f1 = weights_dict['b_f1'].astype(np.int64)
+    w_f2 = weights_dict['w_f2'].reshape(10, 84).astype(np.int64)
+    b_f2 = weights_dict['b_f2'].astype(np.int64)
 
     # Conv1
-    c1_in = im2col_fast(img_q, 5, 5)
+    c1_in = im2col_fast(img_q, 5, 5).astype(np.int64)
     c1_raw = (c1_in @ w_c1.T) >> shift
     c1 = np.clip(c1_raw + b_c1, 0, max_val).reshape(28, 28, 6).transpose(2, 0, 1)
 
@@ -111,7 +111,7 @@ def run_quantized_sim(img, weights_dict, frac_bits=8, word_bits=16):
     p1 = (c1.reshape(6, 14, 2, 14, 2).sum(axis=(2, 4))) >> 2
 
     # Conv2
-    c2_in = im2col_fast(p1, 5, 5)
+    c2_in = im2col_fast(p1, 5, 5).astype(np.int64)
     c2_raw = (c2_in @ w_c2.T) >> shift
     c2 = np.clip(c2_raw + b_c2, 0, max_val).reshape(10, 10, 16).transpose(2, 0, 1)
 
@@ -119,13 +119,13 @@ def run_quantized_sim(img, weights_dict, frac_bits=8, word_bits=16):
     p2 = (c2.reshape(16, 5, 2, 5, 2).sum(axis=(2, 4))) >> 2
 
     # Conv3
-    c3_in = p2.flatten()[None, :]
+    c3_in = p2.flatten()[None, :].astype(np.int64)
     c3_raw = (c3_in @ w_c3.T) >> shift
     c3 = np.clip((c3_raw + b_c3).flatten(), 0, max_val)
 
     # FC1
     fc1_raw = (c3[None, :] @ w_f1.T) >> shift
-    fc1 = np.clip((fc1_raw + b_fc1).flatten(), 0, max_val)
+    fc1 = np.clip((fc1_raw + b_f1).flatten(), 0, max_val)
 
     # FC2
     fc2_raw = (fc1[None, :] @ w_f2.T) >> shift
