@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 820" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0f19" />
+      <stop offset="100%" stop-color="#111827" />
+    </linearGradient>
+
+    <!-- State Circle Gradient -->
+    <linearGradient id="node-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+
+    <!-- Highlight Node Gradient (Mult_Add) -->
+    <linearGradient id="highlight-node-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e1b4b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+
+    <!-- Drop Shadow Filter -->
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+
+    <!-- Arrow Marker -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#38bdf8" />
+    </marker>
+
+    <!-- Red Reset Arrow Marker -->
+    <marker id="arrow-reset" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#f43f5e" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="650" height="820" fill="url(#bg-gradient)" rx="16" />
+
+  <!-- Title & Defaults Box -->
+  <g transform="translate(325, 45)">
+    <text text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="bold" fill="#f8fafc">
+      Controller Finite State Machine (FSM)
+    </text>
+    <rect x="-110" y="20" width="220" height="70" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5" filter="url(#shadow)"/>
+    <text font-family="Consolas, monospace" font-size="12" fill="#cbd5e1" text-anchor="middle">
+      <tspan x="0" y="40">MULT_ADD = 0;</tspan>
+      <tspan x="0" y="58">FINISH = 0;</tspan>
+      <tspan x="0" y="76">MOVE = 0;</tspan>
+    </text>
+  </g>
+
+  <!-- Entry Arrow into Reset State -->
+  <path d="M 325 110 L 325 152" stroke="#38bdf8" stroke-width="2.5" fill="none" marker-end="url(#arrow)" />
+
+  <!-- TRANSITION PATHS -->
+
+  <!-- 1. Reset -> Init (START?) -->
+  <path d="M 325 240 L 325 292" stroke="#38bdf8" stroke-width="2.5" fill="none" marker-end="url(#arrow)" />
+  <rect x="335" y="258" width="60" height="22" rx="4" fill="#0f172a" stroke="#38bdf8" stroke-width="1" />
+  <text x="365" y="273" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#38bdf8" text-anchor="middle">START?</text>
+
+  <!-- 2. Init -> Mult_Add (Counter++) -->
+  <path d="M 325 380 L 325 442" stroke="#38bdf8" stroke-width="2.5" fill="none" marker-end="url(#arrow)" />
+  <rect x="335" y="400" width="75" height="22" rx="4" fill="#0f172a" stroke="#38bdf8" stroke-width="1" />
+  <text x="372.5" y="415" font-family="Consolas, monospace" font-size="11" font-weight="600" fill="#38bdf8" text-anchor="middle">Counter++</text>
+
+  <!-- 3. Mult_Add -> Move (Counter != mat_size? / MULT_ADD = 0;) -->
+  <path d="M 255 510 L 155 510" stroke="#38bdf8" stroke-width="2.5" fill="none" marker-end="url(#arrow)" />
+  <rect x="160" y="475" width="135" height="30" rx="4" fill="#0f172a" stroke="#38bdf8" stroke-width="1" />
+  <text font-family="system-ui, sans-serif" font-size="10" font-weight="600" fill="#38bdf8" text-anchor="middle">
+    <tspan x="227.5" y="487">Counter != mat_size?</tspan>
+    <tspan x="227.5" y="500" font-family="Consolas, monospace" fill="#94a3b8">MULT_ADD = 0;</tspan>
+  </text>
+
+  <!-- 4. Move -> Mult_Add (Counter++ / MOVE = 0;) -->
+  <path d="M 105 450 C 105 390, 240 390, 280 448" stroke="#38bdf8" stroke-width="2.5" fill="none" marker-end="url(#arrow)" />
+  <rect x="145" y="380" width="85" height="30" rx="4" fill="#0f172a" stroke="#38bdf8" stroke-width="1" />
+  <text font-family="system-ui, sans-serif" font-size="10" font-weight="600" fill="#38bdf8" text-anchor="middle">
+    <tspan x="187.5" y="392">Counter++</tspan>
+    <tspan x="187.5" y="405" font-family="Consolas, monospace" fill="#94a3b8">MOVE = 0;</tspan>
+  </text>
+
+  <!-- 5. Mult_Add -> Finish (Counter == mat_size?) -->
+  <path d="M 325 580 L 325 672" stroke="#38bdf8" stroke-width="2.5" fill="none" marker-end="url(#arrow)" />
+  <rect x="335" y="618" width="135" height="24" rx="4" fill="#0f172a" stroke="#38bdf8" stroke-width="1" />
+  <text x="402.5" y="634" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#38bdf8" text-anchor="middle">Counter == mat_size?</text>
+
+  <!-- RESET LOOPS (RED ARROWS) -->
+
+  <!-- Reset line from Move -> Reset -->
+  <path d="M 105 450 L 105 196 L 273 196" stroke="#f43f5e" stroke-width="2" stroke-dasharray="5,4" fill="none" marker-end="url(#arrow-reset)" />
+  <rect x="170" y="183" width="45" height="18" rx="3" fill="#1e1028" stroke="#f43f5e" stroke-width="1" />
+  <text x="192.5" y="196" font-family="system-ui, sans-serif" font-size="10" fill="#f43f5e" font-weight="600" text-anchor="middle">reset?</text>
+
+  <!-- Reset line from Init -> Reset -->
+  <path d="M 377 336 C 410 336, 410 210, 379 199" stroke="#f43f5e" stroke-width="2" stroke-dasharray="5,4" fill="none" marker-end="url(#arrow-reset)" />
+  <rect x="400" y="258" width="45" height="18" rx="3" fill="#1e1028" stroke="#f43f5e" stroke-width="1" />
+  <text x="422.5" y="271" font-family="system-ui, sans-serif" font-size="10" fill="#f43f5e" font-weight="600" text-anchor="middle">reset?</text>
+
+  <!-- Reset line from Mult_Add -> Reset -->
+  <path d="M 395 510 C 470 510, 470 200, 381 196" stroke="#f43f5e" stroke-width="2" stroke-dasharray="5,4" fill="none" marker-end="url(#arrow-reset)" />
+  <rect x="460" y="345" width="45" height="18" rx="3" fill="#1e1028" stroke="#f43f5e" stroke-width="1" />
+  <text x="482.5" y="358" font-family="system-ui, sans-serif" font-size="10" fill="#f43f5e" font-weight="600" text-anchor="middle">reset?</text>
+
+  <!-- Reset line from Finish -> Reset -->
+  <path d="M 395 725 L 560 725 L 560 196 L 381 196" stroke="#f43f5e" stroke-width="2" stroke-dasharray="5,4" fill="none" marker-end="url(#arrow-reset)" />
+  <rect x="538" y="450" width="45" height="18" rx="3" fill="#1e1028" stroke="#f43f5e" stroke-width="1" />
+  <text x="560.5" y="463" font-family="system-ui, sans-serif" font-size="10" fill="#f43f5e" font-weight="600" text-anchor="middle">reset?</text>
+
+  <!-- STATE NODES (CIRCLES) -->
+
+  <!-- 1. Reset State -->
+  <g transform="translate(325, 196)">
+    <circle cx="0" cy="0" r="44" fill="url(#node-gradient)" stroke="#38bdf8" stroke-width="2.5" filter="url(#shadow)" />
+    <text font-family="system-ui, -apple-system, sans-serif" text-anchor="middle">
+      <tspan x="0" y="-4" font-size="15" font-weight="bold" fill="#f8fafc">Reset</tspan>
+      <tspan x="0" y="16" font-size="11" font-family="Consolas, monospace" fill="#94a3b8">Counter = 0;</tspan>
+    </text>
+  </g>
+
+  <!-- 2. Init State -->
+  <g transform="translate(325, 336)">
+    <circle cx="0" cy="0" r="44" fill="url(#node-gradient)" stroke="#38bdf8" stroke-width="2.5" filter="url(#shadow)" />
+    <text font-family="system-ui, -apple-system, sans-serif" text-anchor="middle">
+      <tspan x="0" y="5" font-size="15" font-weight="bold" fill="#f8fafc">Init</tspan>
+    </text>
+  </g>
+
+  <!-- 3. Move State -->
+  <g transform="translate(105, 490)">
+    <circle cx="0" cy="0" r="46" fill="url(#node-gradient)" stroke="#38bdf8" stroke-width="2.5" filter="url(#shadow)" />
+    <text font-family="system-ui, -apple-system, sans-serif" text-anchor="middle">
+      <tspan x="0" y="-4" font-size="15" font-weight="bold" fill="#f8fafc">Move</tspan>
+      <tspan x="0" y="16" font-size="11" font-family="Consolas, monospace" fill="#60a5fa">MOVE = 1;</tspan>
+    </text>
+  </g>
+
+  <!-- 4. Mult_Add State (Central Highlight Engine) -->
+  <g transform="translate(325, 510)">
+    <circle cx="0" cy="0" r="68" fill="url(#highlight-node-gradient)" stroke="#818cf8" stroke-width="3" filter="url(#shadow)" />
+    <text font-family="system-ui, -apple-system, sans-serif" text-anchor="middle">
+      <tspan x="0" y="-8" font-size="17" font-weight="bold" fill="#ffffff">Mult_Add</tspan>
+      <tspan x="0" y="16" font-size="12" font-family="Consolas, monospace" font-weight="bold" fill="#818cf8">MULT_ADD = 1;</tspan>
+    </text>
+  </g>
+
+  <!-- 5. Finish State -->
+  <g transform="translate(325, 725)">
+    <circle cx="0" cy="0" r="46" fill="url(#node-gradient)" stroke="#34d399" stroke-width="2.5" filter="url(#shadow)" />
+    <text font-family="system-ui, -apple-system, sans-serif" text-anchor="middle">
+      <tspan x="0" y="-4" font-size="15" font-weight="bold" fill="#f8fafc">Finish</tspan>
+      <tspan x="0" y="16" font-size="11" font-family="Consolas, monospace" fill="#34d399">FINISH = 1;</tspan>
+    </text>
+  </g>
+
+</svg>

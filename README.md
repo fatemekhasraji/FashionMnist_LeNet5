@@ -112,6 +112,8 @@ graph TD
 - **State Machine**: Controls 5x5 matrix tile multiplication, data shifting, matrix load/store operations, and pooling modes.
 - **Multi-layer Sequencing**: Seamlessly transitions between Convolutional (im2col tiles), Pooling (2x2 spatial downsampling), and Dense (FC) layers.
 
+![Controller FSM State Diagram](img/fsm_state_diagram.svg)
+
 ### 4. LeNet-5 Layer Specifications
 | Layer | Input Feature Map | Kernel / Operation | Output Feature Map | Activation |
 | :--- | :--- | :--- | :--- | :--- |
