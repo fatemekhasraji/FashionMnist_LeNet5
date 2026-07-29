@@ -199,11 +199,6 @@ Out-of-context synthesis was executed using Xilinx Vivado for the core compute e
 | **Block RAM (BRAM)** | **0** | 135 | **0.00%** | Compute Engine uses streaming registers |
 | **Worst Negative Slack (WNS)** | **+2.129 ns** | - | - | Positive setup slack @ 100 MHz |
 | **Max Clock Frequency ($f_{max}$)** | **127.05 MHz** | - | - | $T_{min} = 10.0\text{ns} - 2.129\text{ns} = 7.871\text{ns}$ |
-
-> 💡 **Architectural Note on BRAM Usage**:
-> - **Compute Microkernel vs. Memory Subsystem**: The `accel_top` hardware module synthesized above represents the **pure compute core** (5x5 Torus Systolic Array + FSM Controller). Feature map data and weight matrix tiles are streamed directly via wide parallel register buses into the Processing Elements (Slice Registers), eliminating BRAM overhead inside the compute core.
-> - **System Integration with BRAM**: When integrating this compute engine into a complete SoC system (e.g., connected to an AXI DMA or host CPU), input image line buffers and activation feature maps are stored in **Block RAMs (RAMB36 / RAMB18)** surrounding the core, decoupling compute throughput from storage layout.
-
 ---
 
 ### 3. Latency, Throughput, and Compute Efficiency (GOPS)
