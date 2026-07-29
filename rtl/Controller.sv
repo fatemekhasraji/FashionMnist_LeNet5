@@ -1,4 +1,5 @@
 `timescale 1ns / 1ps
+
 module Controller #(
     parameter MAT_SIZE = 5
 )(

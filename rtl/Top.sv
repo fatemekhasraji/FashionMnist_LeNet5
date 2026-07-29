@@ -1,20 +1,9 @@
 `timescale 1ns / 1ps
 
 // ============================================================
-// FashionMNIST LeNet5 inference top
-//
-// Architecture:
-//   - Conv1   -> GEMM (im2col) on existing Torus microkernel
-//   - Pool1   -> local 2x2 average pooling
-//   - Conv2   -> GEMM (im2col) on existing Torus microkernel
-//   - Pool2   -> local 2x2 average pooling
-//   - Conv3   -> GEMM (im2col) on existing Torus microkernel
-//   - FC1     -> GEMM on existing Torus microkernel
-//   - FC2     -> GEMM on existing Torus microkernel
-//   - Argmax  -> predicted class
-//
-// This is a simulation-ready top datapath. It uses the existing
-// Controller + Torus as the compute microkernel for 5x5 tiles.
+// LeNet-5 CNN Hardware Accelerator Top Module
+// Datapath sequencing: Conv1 -> Pool1 -> Conv2 -> Pool2 -> Conv3 -> FC1 -> FC2 -> Argmax
+// Accelerates 5x5 GEMM tiles using Torus Systolic Array & Controller
 // ============================================================
 
 module find_max_index #(
@@ -95,7 +84,7 @@ module cnn_top #(
     reg signed [DATA_W-1:0] fc1_out  [0:FC1_CH-1];
     reg signed [DATA_W-1:0] fc2_out  [0:FC2_CH-1];
 
-    // Weights and biases loaded from weights/
+    // Weights and biases loaded from data/weights/
     reg signed [DATA_W-1:0] w_conv1 [0:C1_CH*25-1];   // 6 x 25
     reg signed [DATA_W-1:0] b_conv1 [0:C1_CH-1];
     reg signed [DATA_W-1:0] w_conv2 [0:C2_CH*150-1];  // 16 x 150
@@ -118,41 +107,41 @@ module cnn_top #(
     wire micro_MOVE, micro_MULT_ADD, micro_FINISH, micro_POOL_MODE;
     integer img_count = 0;
 
-            Controller micro_ctrl (
-                .clk(clk),
-                .reset(reset),
-                .START(micro_start),
-                .op_sel(micro_op_sel),
-                .in_rows(micro_in_rows),
-                .in_cols(micro_in_cols),
-                .out_rows(micro_out_rows),
-                .out_cols(micro_out_cols),
-                .k_dim(micro_k_dim),
-                .MOVE(micro_MOVE),
-                .MULT_ADD(micro_MULT_ADD),
-                .FINISH(micro_FINISH),
-                .POOL_MODE(micro_POOL_MODE)
-            );
+    Controller micro_ctrl (
+        .clk(clk),
+        .reset(reset),
+        .START(micro_start),
+        .op_sel(micro_op_sel),
+        .in_rows(micro_in_rows),
+        .in_cols(micro_in_cols),
+        .out_rows(micro_out_rows),
+        .out_cols(micro_out_cols),
+        .k_dim(micro_k_dim),
+        .MOVE(micro_MOVE),
+        .MULT_ADD(micro_MULT_ADD),
+        .FINISH(micro_FINISH),
+        .POOL_MODE(micro_POOL_MODE)
+    );
 
-            Torus #(
-                .bit_width(DATA_W),
-                .FRAC_BITS(FRAC_BITS),
-                .mat_size(SA_SIZE),
-                .torus_row_size(SA_SIZE),
-                .torus_col_size(SA_SIZE)
-            ) micro_torus (
-                .reset(reset),
-                .clk(clk),
-                .START(micro_start),
-                .MOVE(micro_MOVE),
-                .MULT_ADD(micro_MULT_ADD),
-                .FINISH(micro_FINISH),
-                .op_sel(1'b0),
-                .flat_A(micro_flat_A),
-                .flat_B(micro_flat_B),
-                .Matrix_C(micro_flat_C)
-            );
-      
+    Torus #(
+        .bit_width(DATA_W),
+        .FRAC_BITS(FRAC_BITS),
+        .mat_size(SA_SIZE),
+        .torus_row_size(SA_SIZE),
+        .torus_col_size(SA_SIZE)
+    ) micro_torus (
+        .reset(reset),
+        .clk(clk),
+        .START(micro_start),
+        .MOVE(micro_MOVE),
+        .MULT_ADD(micro_MULT_ADD),
+        .FINISH(micro_FINISH),
+        .op_sel(1'b0),
+        .flat_A(micro_flat_A),
+        .flat_B(micro_flat_B),
+        .Matrix_C(micro_flat_C)
+    );
+
     // 5x5 tile scratchpads
     reg signed [DATA_W-1:0] a_tile [0:SA_SIZE-1][0:SA_SIZE-1];
     reg signed [DATA_W-1:0] b_tile [0:SA_SIZE-1][0:SA_SIZE-1];
@@ -165,9 +154,6 @@ module cnn_top #(
     integer abs_i;
     integer q_i;
 
-    // -------------------------
-    // Helper functions
-    // -------------------------
     function automatic signed [DATA_W-1:0] clamp_act_FB(input integer x);
         integer limit;
         begin
@@ -246,20 +232,17 @@ module cnn_top #(
         end
     endfunction
 
-    // -------------------------
-    // Memory setup
-    // -------------------------
     initial begin
-        $readmemh("weights/conv1_weight.txt", w_conv1);
-        $readmemh("weights/conv1_bias.txt",   b_conv1);
-        $readmemh("weights/conv2_weight.txt", w_conv2);
-        $readmemh("weights/conv2_bias.txt",   b_conv2);
-        $readmemh("weights/conv3_weight.txt", w_conv3);
-        $readmemh("weights/conv3_bias.txt",   b_conv3);
-        $readmemh("weights/fc1_weight.txt",   w_fc1);
-        $readmemh("weights/fc1_bias.txt",     b_fc1);
-        $readmemh("weights/fc2_weight.txt",   w_fc2);
-        $readmemh("weights/fc2_bias.txt",     b_fc2);
+        $readmemh("data/weights/conv1_weight.txt", w_conv1);
+        $readmemh("data/weights/conv1_bias.txt",   b_conv1);
+        $readmemh("data/weights/conv2_weight.txt", w_conv2);
+        $readmemh("data/weights/conv2_bias.txt",   b_conv2);
+        $readmemh("data/weights/conv3_weight.txt", w_conv3);
+        $readmemh("data/weights/conv3_bias.txt",   b_conv3);
+        $readmemh("data/weights/fc1_weight.txt",   w_fc1);
+        $readmemh("data/weights/fc1_bias.txt",     b_fc1);
+        $readmemh("data/weights/fc2_weight.txt",   w_fc2);
+        $readmemh("data/weights/fc2_bias.txt",     b_fc2);
     end
 
     task automatic unpack_image;
@@ -293,11 +276,11 @@ module cnn_top #(
 
             micro_start = 1'b1;
             @(posedge clk);
-            micro_start <= 1'b0;  // NBA: Controller always samples START=1
+            micro_start <= 1'b0;
 
             wait (micro_FINISH);
-            @(posedge clk);   // Torus captures prod on FINISH
-            @(posedge clk);   // extra cycle: Matrix_C stable for read
+            @(posedge clk);
+            @(posedge clk);
 
             for (r = 0; r < SA_SIZE; r = r + 1) begin
                 for (c = 0; c < SA_SIZE; c = c + 1) begin
@@ -348,8 +331,6 @@ module cnn_top #(
                                 acc_tile[rr][cc] = acc_tile[rr][cc] + $signed(p_tile[rr][cc]);
                             end
                         end
-                        if (layer == 2 && n_base == 0 && m_base == 0)
-                            $display("[C2 K DEBUG] k_base=%0d p_tile[0][2]=%d acc[0][2]=%d", k_base, p_tile[0][2], acc_tile[0][2]);
                     end
 
                     for (rr = 0; rr < SA_SIZE; rr = rr + 1) begin
@@ -392,7 +373,6 @@ module cnn_top #(
                     for (c = 0; c < P1_W; c = c + 1) begin
                         base_r = r * 2;
                         base_c = c * 2;
-                        sum = pool1_out[ch * (P1_H * P1_W) + r * P1_W + c];
                         sum = 0;
                         sum = sum + conv1_out[ch * (C1_H * C1_W) + (base_r + 0) * C1_W + (base_c + 0)];
                         sum = sum + conv1_out[ch * (C1_H * C1_W) + (base_r + 0) * C1_W + (base_c + 1)];
@@ -431,45 +411,24 @@ module cnn_top #(
         begin
             state_dbg = 3'd1; layer_dbg = 3'd0;
             run_implicit_gemm(0, C1_N, 25, C1_CH);
-            if (img_count == 1) begin
-                $display("[IMG1 W0] %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d",
-                    w_conv1[0], w_conv1[1], w_conv1[2], w_conv1[3], w_conv1[4],
-                    w_conv1[5], w_conv1[6], w_conv1[7], w_conv1[8], w_conv1[9],
-                    w_conv1[10], w_conv1[11], w_conv1[12], w_conv1[13], w_conv1[14],
-                    w_conv1[15], w_conv1[16], w_conv1[17], w_conv1[18], w_conv1[19],
-                    w_conv1[20], w_conv1[21], w_conv1[22], w_conv1[23], w_conv1[24]);
-                $display("[IMG1 A6] %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d",
-                    get_a(0, 6, 0), get_a(0, 6, 1), get_a(0, 6, 2), get_a(0, 6, 3), get_a(0, 6, 4),
-                    get_a(0, 6, 5), get_a(0, 6, 6), get_a(0, 6, 7), get_a(0, 6, 8), get_a(0, 6, 9),
-                    get_a(0, 6, 10), get_a(0, 6, 11), get_a(0, 6, 12), get_a(0, 6, 13), get_a(0, 6, 14),
-                    get_a(0, 6, 15), get_a(0, 6, 16), get_a(0, 6, 17), get_a(0, 6, 18), get_a(0, 6, 19),
-                    get_a(0, 6, 20), get_a(0, 6, 21), get_a(0, 6, 22), get_a(0, 6, 23), get_a(0, 6, 24));
-                $display("[IMG1 C1] %d %d %d %d %d %d %d %d %d %d", conv1_out[0], conv1_out[1], conv1_out[2], conv1_out[3], conv1_out[4], conv1_out[5], conv1_out[6], conv1_out[7], conv1_out[8], conv1_out[9]);
-            end
 
             state_dbg = 3'd2; layer_dbg = 3'd1;
             run_pool1();
-            if (img_count == 1) $display("[IMG1 P1] %d %d %d %d %d %d %d %d %d %d", pool1_out[0], pool1_out[1], pool1_out[2], pool1_out[3], pool1_out[4], pool1_out[5], pool1_out[6], pool1_out[7], pool1_out[8], pool1_out[9]);
 
             state_dbg = 3'd3; layer_dbg = 3'd2;
             run_implicit_gemm(2, C2_N, 150, C2_CH);
-            if (img_count == 1) $display("[IMG1 C2] %d %d %d %d %d %d %d %d %d %d", conv2_out[0], conv2_out[1], conv2_out[2], conv2_out[3], conv2_out[4], conv2_out[5], conv2_out[6], conv2_out[7], conv2_out[8], conv2_out[9]);
 
             state_dbg = 3'd4; layer_dbg = 3'd3;
             run_pool2();
-            if (img_count == 1) $display("[IMG1 P2] %d %d %d %d %d %d %d %d %d %d", pool2_out[0], pool2_out[1], pool2_out[2], pool2_out[3], pool2_out[4], pool2_out[5], pool2_out[6], pool2_out[7], pool2_out[8], pool2_out[9]);
 
             state_dbg = 3'd5; layer_dbg = 3'd4;
             run_implicit_gemm(4, C3_N, 400, C3_CH);
-            if (img_count == 1) $display("[IMG1 C3] %d %d %d %d %d %d %d %d %d %d", conv3_out[0], conv3_out[1], conv3_out[2], conv3_out[3], conv3_out[4], conv3_out[5], conv3_out[6], conv3_out[7], conv3_out[8], conv3_out[9]);
 
             state_dbg = 3'd6; layer_dbg = 3'd5;
             run_implicit_gemm(5, FC1_N, 120, FC1_CH);
-            if (img_count == 1) $display("[IMG1 FC1] %d %d %d %d %d %d %d %d %d %d", fc1_out[0], fc1_out[1], fc1_out[2], fc1_out[3], fc1_out[4], fc1_out[5], fc1_out[6], fc1_out[7], fc1_out[8], fc1_out[9]);
 
             state_dbg = 3'd7; layer_dbg = 3'd6;
             run_implicit_gemm(6, FC2_N, 84, FC2_CH);
-            if (img_count == 1) $display("[IMG1 FC2] %d %d %d %d %d %d %d %d %d %d", fc2_out[0], fc2_out[1], fc2_out[2], fc2_out[3], fc2_out[4], fc2_out[5], fc2_out[6], fc2_out[7], fc2_out[8], fc2_out[9]);
 
             pack_logits();
             img_count = img_count + 1;
@@ -477,9 +436,6 @@ module cnn_top #(
         end
     endtask
 
-    // -------------------------
-    // Run control
-    // -------------------------
     initial begin
         busy = 1'b0;
         done = 1'b0;
@@ -514,7 +470,6 @@ module cnn_top #(
         end
     end
 
-    // A small combinational argmax over the final logits.
     wire [$clog2(FC2_CH)-1:0] max_idx;
     wire signed [DATA_W-1:0] max_val;
     find_max_index #(

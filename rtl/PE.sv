@@ -1,11 +1,5 @@
 `timescale 1ns / 1ps
-//=============================================================================
-//  Processing Element — full 32-bit output for tile accumulation
-//=============================================================================
-//  psum accumulates (left*up)>>>8 (per-MAC Q8.8 shift, matches behavioral)
-//  prod = full 32-bit psum → Torus captures full precision for tile accum
-//  p_tile in Top.sv then accumulates 32-bit values across K-tiles
-//=============================================================================
+
 module PE #(
     parameter integer bit_width = 16,
     parameter integer FRAC_BITS = 8,
@@ -20,7 +14,7 @@ module PE #(
     input  wire MULT_ADD,
     output wire signed [bit_width-1:0] down,
     output wire signed [bit_width-1:0] right,
-    output reg  signed [31:0] prod      // full 32-bit for tile accumulation
+    output reg  signed [31:0] prod
 );
 
     reg signed [31:0] psum;

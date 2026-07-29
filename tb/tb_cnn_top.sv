@@ -6,7 +6,7 @@ module tb_cnn_top;
     localparam integer IMG_W  = 32;
     localparam integer IMG_N  = IMG_H * IMG_W;
     localparam integer N_IMGS = 20;
-    localparam integer FRAC_BITS = 4;
+    localparam integer FRAC_BITS = 8;
     
     reg clk = 0;
     reg reset = 1;
@@ -20,7 +20,6 @@ module tb_cnn_top;
     wire [3:0] predicted_class;
     wire signed [DATA_W*10-1:0] logits_flat;
 
-    // flat arrays: all images and labels
     reg signed [DATA_W-1:0] all_imgs [0:IMG_N * N_IMGS - 1];
     reg [7:0] label_mem [0:N_IMGS - 1];
     reg [9:0] img_idx;
@@ -57,12 +56,11 @@ module tb_cnn_top;
     endtask
 
     initial begin
-        $readmemh("verilog/test_data/test_images.hex", all_imgs);
-        $readmemh("verilog/test_data/labels.hex", label_mem);
-        $display("================================================");
-        $display("  LeNet5 FashionMNIST    %0d-image test", N_IMGS);
-        $display("  single file: test_images.hex");
-        $display("================================================");
+        $readmemh("data/test_images.hex", all_imgs);
+        $readmemh("data/labels.hex", label_mem);
+        $display("==================================================");
+        $display("  LeNet-5 Fashion-MNIST Hardware Inference Test");
+        $display("==================================================");
 
         correct = 0;
         total   = 0;
@@ -86,26 +84,15 @@ module tb_cnn_top;
             total = total + 1;
             if (predicted_class == label_mem[img_idx])
                 correct = correct + 1;
-            if (img_idx < N_IMGS) begin
-                $display("  img[%0d] label=%0d pred=%0d %s  logits=%d %d %d %d %d %d %d %d %d %d",
-                    img_idx, label_mem[img_idx], predicted_class,
-                    (predicted_class == label_mem[img_idx] ? "OK" : "WRONG"),
-                    $signed(logits_flat[0*16+:16]), $signed(logits_flat[1*16+:16]),
-                    $signed(logits_flat[2*16+:16]), $signed(logits_flat[3*16+:16]),
-                    $signed(logits_flat[4*16+:16]), $signed(logits_flat[5*16+:16]),
-                    $signed(logits_flat[6*16+:16]), $signed(logits_flat[7*16+:16]),
-                    $signed(logits_flat[8*16+:16]), $signed(logits_flat[9*16+:16]));
-            end
 
-            if (img_idx % 25 == 24 || img_idx == N_IMGS - 1)
-                $display("  [%0d/%0d]  correct=%0d  acc=%0d%%",
-                    img_idx+1, N_IMGS, correct, correct*100/(img_idx+1));
+            $display("  [Image %2d] GroundTruth=%0d | Predicted=%0d | Status=%s",
+                img_idx, label_mem[img_idx], predicted_class,
+                (predicted_class == label_mem[img_idx] ? "OK" : "WRONG"));
         end
 
-        $display("================================================");
-        $display("time =%t: FINAL:  %0d / %0d  =  %0d%%",
-           $time, correct, total, correct*100/total);
-        $display("================================================");
+        $display("==================================================");
+        $display("  Accuracy: %0d / %0d (%0d%%)", correct, total, correct * 100 / total);
+        $display("==================================================");
         #20;
         $finish;
     end

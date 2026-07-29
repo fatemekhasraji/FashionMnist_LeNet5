@@ -1,9 +1,5 @@
 `timescale 1ns / 1ps
 
-// ============================================================
-// Synthesizable Top Module for 2D Torus Systolic Accelerator
-// (Combines Controller FSM + 5x5 Torus Systolic Array)
-// ============================================================
 module accel_top #(
     parameter integer DATA_W = 16,
     parameter integer FRAC_BITS = 8,

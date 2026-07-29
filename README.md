@@ -131,22 +131,31 @@ graph TD
 FashionMnist_LeNet5/
 ├── README.md                      # Project documentation
 ├── FashionMnist_LeNet5.xpr        # Xilinx Vivado Project File
+├── run_synthesis_bench.tcl        # Out-Of-Context Vivado Synthesis Script
 │
-├── FashionMnist_LeNet5.srcs/
-│   └── sources_1/new/             # Clean SystemVerilog RTL Source Files
-│       ├── PE.sv                  # Processing Element (16-bit Q8.8 MAC)
-│       ├── SA.sv                  # 2D Torus Systolic Array (5x5 PE Grid)
-│       ├── Controller.sv          # FSM & Hardware Tile Controller
-│       ├── Top.sv                 # Complete LeNet-5 CNN Top Datapath (`cnn_top`)
-│       ├── tb_cnn_top.sv          # Complete Fashion-MNIST Inference Testbench
-│       └── tb_direct_torus.sv     # Unit testbench for Systolic Array & Controller
+├── rtl/                           # SystemVerilog RTL Source Files
+│   ├── Controller.sv              # FSM Hardware Tile Controller
+│   ├── PE.sv                      # Processing Element (16-bit Q8.8 MAC)
+│   ├── SA.sv                      # 2D Torus Systolic Array (5x5 PE Grid)
+│   ├── Top.sv                     # LeNet-5 CNN Accelerator Top Module (`cnn_top`)
+│   └── accel_top.sv               # Synthesizable Compute Core Top Wrapper
 │
-└── FashionMnist_LeNet5.sim/sim_1/behav/xsim/
-    ├── SW_HW3.ipynb               # Jupyter notebook: Training, Quantization & Hex export
-    ├── full_sim.py          # Bit-exact Python simulator for hardware verification
-    ├── lenet5.pth                 # Trained PyTorch model checkpoint
-    ├── weights/                   # Hardware ROM initialization hex files (weights/biases)
-    └── verilog/test_data/         # Fashion-MNIST dataset test images (`test_images.hex`, `labels.hex`)
+├── tb/                            # SystemVerilog Testbenches
+│   ├── tb_cnn_top.sv              # End-to-End Fashion-MNIST Inference Testbench
+│   └── tb_direct_torus.sv         # Unit Testbench for Torus Microkernel
+│
+├── data/                          # Dataset & ROM Weight Files
+│   ├── test_images.hex            # Quantized Fashion-MNIST test images
+│   ├── labels.hex                 # Ground truth labels (0-9)
+│   └── weights/                   # Quantized layer weights & bias hex files
+│
+├── sim/                           # Python Verification & Analysis Suite
+│   ├── full_sim.py                # Bit-exact Python simulator
+│   ├── quantization_study.py      # FP32 vs Q8.8 vs Q4.4 benchmarking script
+│   └── SW_HW3.ipynb               # PyTorch training & weight export notebook
+│
+└── img/                           # Architectural Vector Diagrams
+    └── system_architecture.svg    # System architecture diagram
 ```
 
 ---
@@ -156,13 +165,19 @@ FashionMnist_LeNet5/
 ### 1. PyTorch Model & Hex Generation (Optional)
 If you wish to re-train the model or export custom test images:
 ```bash
-jupyter notebook FashionMnist_LeNet5.sim/sim_1/behav/xsim/SW_HW3.ipynb
+jupyter notebook sim/SW_HW3.ipynb
 ```
 
 ### 2. Python Bit-Exact Simulator Verification
 Run the Python reference simulator to verify fixed-point inference results on Fashion-MNIST test images:
 ```bash
-python FashionMnist_LeNet5.sim/sim_1/behav/xsim/full_sim.py
+python sim/full_sim.py
+```
+
+### 3. Quantization Sensitivity & Accuracy Benchmarking
+Run the accuracy trade-off study across precision modes (FP32, Q8.8, Q4.4):
+```bash
+python sim/quantization_study.py
 ```
 
 ### 3. SystemVerilog Simulation in Vivado

@@ -7,10 +7,10 @@ set devices {
 }
 
 set src_files [list \
-    "FashionMnist_LeNet5.srcs/sources_1/new/Controller.sv" \
-    "FashionMnist_LeNet5.srcs/sources_1/new/PE.sv" \
-    "FashionMnist_LeNet5.srcs/sources_1/new/SA.sv" \
-    "FashionMnist_LeNet5.srcs/sources_1/new/accel_top.sv" \
+    "rtl/Controller.sv" \
+    "rtl/PE.sv" \
+    "rtl/SA.sv" \
+    "rtl/accel_top.sv" \
 ]
 
 file mkdir "synth_results"

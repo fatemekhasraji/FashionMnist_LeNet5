@@ -1,3 +1,8 @@
+"""
+Quantization Sensitivity & Accuracy Trade-off Study
+===================================================
+Benchmarking FP32 Floating-Point, Q8.8 Fixed-Point, and Q4.4 INT8 Precision.
+"""
 import numpy as np
 import os
 
@@ -38,96 +43,99 @@ def im2col_fast(img, kh=5, kw=5):
 def run_fp32_sim(img, weights_dict):
     scale = 256.0
     img_q = img[None, :, :] / scale
-    wc1 = weights_dict['w_c1'].reshape(6, 25) / scale
-    bc1 = weights_dict['b_c1'] / scale
-    wc2 = weights_dict['w_c2'].reshape(16, 150) / scale
-    bc2 = weights_dict['b_c2'] / scale
-    wc3 = weights_dict['w_c3'].reshape(120, 400) / scale
-    bc3 = weights_dict['b_c3'] / scale
-    wf1 = weights_dict['w_f1'].reshape(84, 120) / scale
-    bf1 = weights_dict['b_f1'] / scale
-    wf2 = weights_dict['w_f2'].reshape(10, 84) / scale
-    bf2 = weights_dict['b_f2'] / scale
+
+    w_c1 = weights_dict['w_c1'].reshape(6, 25) / scale
+    b_c1 = weights_dict['b_c1'] / scale
+    w_c2 = weights_dict['w_c2'].reshape(16, 150) / scale
+    b_c2 = weights_dict['b_c2'] / scale
+    w_c3 = weights_dict['w_c3'].reshape(120, 400) / scale
+    b_c3 = weights_dict['b_c3'] / scale
+    w_f1 = weights_dict['w_f1'].reshape(84, 120) / scale
+    b_f1 = weights_dict['b_f1'] / scale
+    w_f2 = weights_dict['w_f2'].reshape(10, 84) / scale
+    b_f2 = weights_dict['b_f2'] / scale
 
     # Conv1
-    col1 = im2col_fast(img_q, 5, 5)
-    c1 = np.maximum(0, np.dot(col1, wc1.T) + bc1).T.reshape(6, 28, 28)
+    c1_in = im2col_fast(img_q, 5, 5)
+    c1 = (c1_in @ w_c1.T + b_c1).reshape(28, 28, 6).transpose(2, 0, 1)
+    c1 = np.maximum(0, c1)
 
     # Pool1
     p1 = c1.reshape(6, 14, 2, 14, 2).mean(axis=(2, 4))
 
     # Conv2
-    col2 = im2col_fast(p1, 5, 5)
-    c2 = np.maximum(0, np.dot(col2, wc2.T) + bc2).T.reshape(16, 10, 10)
+    c2_in = im2col_fast(p1, 5, 5)
+    c2 = (c2_in @ w_c2.T + b_c2).reshape(10, 10, 16).transpose(2, 0, 1)
+    c2 = np.maximum(0, c2)
 
     # Pool2
     p2 = c2.reshape(16, 5, 2, 5, 2).mean(axis=(2, 4))
 
     # Conv3
-    col3 = p2.reshape(1, 400)
-    c3 = np.maximum(0, np.dot(col3, wc3.T) + bc3).reshape(120)
+    c3_in = p2.flatten()[None, :]
+    c3 = (c3_in @ w_c3.T + b_c3).flatten()
+    c3 = np.maximum(0, c3)
 
     # FC1
-    f1 = np.maximum(0, np.dot(wf1, c3) + bf1)
+    fc1 = (c3[None, :] @ w_f1.T + b_f1).flatten()
+    fc1 = np.maximum(0, fc1)
 
     # FC2
-    f2 = np.dot(wf2, f1) + bf2
-
-    return np.argmax(f2)
+    fc2 = (fc1[None, :] @ w_f2.T + b_f2).flatten()
+    return np.argmax(fc2)
 
 def run_quantized_sim(img, weights_dict, frac_bits=8, word_bits=16):
-    scale = 1 << frac_bits
+    shift = frac_bits
     max_val = (1 << (word_bits - 1)) - 1
     min_val = -(1 << (word_bits - 1))
-    clamp = lambda x: np.clip(x, min_val, max_val)
-    asr = lambda x, s: np.right_shift(x.astype(np.int64), s)
 
-    img_q = clamp(np.round((img[None, :, :] / 256.0) * scale)).astype(np.int64)
-    wc1 = clamp(np.round((weights_dict['w_c1'].reshape(6, 25) / 256.0) * scale)).astype(np.int64)
-    bc1 = clamp(np.round((weights_dict['b_c1'] / 256.0) * scale)).astype(np.int64)
-    wc2 = clamp(np.round((weights_dict['w_c2'].reshape(16, 150) / 256.0) * scale)).astype(np.int64)
-    bc2 = clamp(np.round((weights_dict['b_c2'] / 256.0) * scale)).astype(np.int64)
-    wc3 = clamp(np.round((weights_dict['w_c3'].reshape(120, 400) / 256.0) * scale)).astype(np.int64)
-    bc3 = clamp(np.round((weights_dict['b_c3'] / 256.0) * scale)).astype(np.int64)
-    wf1 = clamp(np.round((weights_dict['w_f1'].reshape(84, 120) / 256.0) * scale)).astype(np.int64)
-    bf1 = clamp(np.round((weights_dict['b_f1'] / 256.0) * scale)).astype(np.int64)
-    wf2 = clamp(np.round((weights_dict['w_f2'].reshape(10, 84) / 256.0) * scale)).astype(np.int64)
-    bf2 = clamp(np.round((weights_dict['b_f2'] / 256.0) * scale)).astype(np.int64)
+    img_q = np.clip(img[None, :, :], min_val, max_val)
+
+    w_c1 = weights_dict['w_c1'].reshape(6, 25)
+    b_c1 = weights_dict['b_c1']
+    w_c2 = weights_dict['w_c2'].reshape(16, 150)
+    b_c2 = weights_dict['b_c2']
+    w_c3 = weights_dict['w_c3'].reshape(120, 400)
+    b_c3 = weights_dict['b_c3']
+    w_f1 = weights_dict['w_f1'].reshape(84, 120)
+    b_f1 = weights_dict['b_f1']
+    w_f2 = weights_dict['w_f2'].reshape(10, 84)
+    b_f2 = weights_dict['b_f2']
 
     # Conv1
-    col1 = im2col_fast(img_q, 5, 5)
-    c1_mat = asr(np.dot(col1, wc1.T), frac_bits) + bc1
-    c1 = clamp(np.maximum(0, c1_mat)).T.reshape(6, 28, 28)
+    c1_in = im2col_fast(img_q, 5, 5)
+    c1_raw = (c1_in @ w_c1.T) >> shift
+    c1 = np.clip(c1_raw + b_c1, 0, max_val).reshape(28, 28, 6).transpose(2, 0, 1)
 
-    # Pool1 (2x2 avg)
-    p1 = clamp(c1.reshape(6, 14, 2, 14, 2).mean(axis=(2, 4)).astype(np.int64))
+    # Pool1
+    p1 = (c1.reshape(6, 14, 2, 14, 2).sum(axis=(2, 4))) >> 2
 
     # Conv2
-    col2 = im2col_fast(p1, 5, 5)
-    c2_mat = asr(np.dot(col2, wc2.T), frac_bits) + bc2
-    c2 = clamp(np.maximum(0, c2_mat)).T.reshape(16, 10, 10)
+    c2_in = im2col_fast(p1, 5, 5)
+    c2_raw = (c2_in @ w_c2.T) >> shift
+    c2 = np.clip(c2_raw + b_c2, 0, max_val).reshape(10, 10, 16).transpose(2, 0, 1)
 
-    # Pool2 (2x2 avg)
-    p2 = clamp(c2.reshape(16, 5, 2, 5, 2).mean(axis=(2, 4)).astype(np.int64))
+    # Pool2
+    p2 = (c2.reshape(16, 5, 2, 5, 2).sum(axis=(2, 4))) >> 2
 
     # Conv3
-    col3 = p2.reshape(1, 400)
-    c3_mat = asr(np.dot(col3, wc3.T), frac_bits) + bc3
-    c3 = clamp(np.maximum(0, c3_mat)).reshape(120)
+    c3_in = p2.flatten()[None, :]
+    c3_raw = (c3_in @ w_c3.T) >> shift
+    c3 = np.clip((c3_raw + b_c3).flatten(), 0, max_val)
 
     # FC1
-    f1_mat = asr(np.dot(wf1, c3), frac_bits) + bf1
-    f1 = clamp(np.maximum(0, f1_mat))
+    fc1_raw = (c3[None, :] @ w_f1.T) >> shift
+    fc1 = np.clip((fc1_raw + b_fc1).flatten(), 0, max_val)
 
     # FC2
-    f2_mat = asr(np.dot(wf2, f1), frac_bits) + bf2
-    f2 = clamp(f2_mat)
+    fc2_raw = (fc1[None, :] @ w_f2.T) >> shift
+    fc2 = np.clip((fc2_raw + b_f2).flatten(), min_val, max_val)
 
-    return np.argmax(f2)
+    return np.argmax(fc2)
 
 def main():
-    base_dir = os.path.dirname(os.path.abspath(__file__))
-    wdir = os.path.join(base_dir, 'weights')
+    root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    wdir = os.path.join(root_dir, 'data', 'weights')
     weights_dict = {
         'w_c1': read_hex_weights(os.path.join(wdir, 'conv1_weight.txt')),
         'b_c1': read_hex_weights(os.path.join(wdir, 'conv1_bias.txt')),
@@ -141,7 +149,8 @@ def main():
         'b_f2': read_hex_weights(os.path.join(wdir, 'fc2_bias.txt'))
     }
 
-    images = read_hex_images(os.path.join(base_dir, 'verilog', 'test_data', 'test_images.hex')).reshape(20, 32, 32)
+    data_dir = os.path.join(root_dir, 'data')
+    images = read_hex_images(os.path.join(data_dir, 'test_images.hex')).reshape(20, 32, 32)
     labels = [9, 2, 1, 1, 6, 1, 4, 6, 5, 7, 4, 5, 7, 3, 4, 1, 2, 4, 8, 0]
 
     correct_fp32 = 0

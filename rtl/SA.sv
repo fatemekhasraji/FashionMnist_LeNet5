@@ -1,4 +1,5 @@
 `timescale 1ns / 1ps
+
 module Torus #(
     parameter bit_width = 32,
     parameter FRAC_BITS = 8,
@@ -93,7 +94,6 @@ module Torus #(
                     up[r][c]   = 0;
                 end
             if (op_sel == 1'b0) begin
-                // GEMM mode
                 for (r = 0; r < mat_size; r = r + 1)
                     for (c = 0; c < mat_size; c = c + 1) begin
                         temp = (mat_size - ((r + 1 + c) % mat_size)) % mat_size;
@@ -104,7 +104,6 @@ module Torus #(
         end
     end
 
-    // Matrix_C capture (async reset)
     always @(posedge clk or posedge reset) begin
         if (reset) begin
             Matrix_C <= 0;

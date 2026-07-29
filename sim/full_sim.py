@@ -1,7 +1,7 @@
 """
-Full LeNet-5 Bit-Exact Simulator with FIXED Controller
-======================================================
-Tests all 20 FashionMNIST test images using the fixed Torus timing.
+LeNet-5 Bit-Exact Fixed-Point Simulator
+========================================
+Simulates Fashion-MNIST inference using Q8.8 fixed-point matrix multiplication.
 """
 import numpy as np
 import os
@@ -48,75 +48,64 @@ def torus_tile_FIXED(a_tile, b_tile, mat_size=5, frac_bits=8):
             temp = (mat_size - ((r + 1 + c) % mat_size)) % mat_size
             left_init[r][c] = b_tile[temp][r]
             up_init[r][c]   = a_tile[c][temp]
-    
-    up_reg   = up_init.copy()
+
     left_reg = left_init.copy()
+    up_reg   = up_init.copy()
     psum     = np.zeros((mat_size, mat_size), dtype=np.int64)
-    
-    pe_down  = np.zeros((mat_size, mat_size), dtype=np.int64)
-    pe_right = np.zeros((mat_size, mat_size), dtype=np.int64)
-    
-    # Cycle 1: S_PRIME (MULT_ADD only)
+
+    for step in range(mat_size):
+        for r in range(mat_size):
+            for c in range(mat_size):
+                mult_full = left_reg[r][c] * up_reg[r][c]
+                mult_q88 = asr_32bit(mult_full, frac_bits)
+                psum[r][c] += mult_q88
+
+        if step < mat_size - 1:
+            next_left = np.zeros_like(left_reg)
+            next_up   = np.zeros_like(up_reg)
+            for r in range(mat_size):
+                for c in range(mat_size):
+                    prev_c = (c - 1) % mat_size
+                    next_left[r][c] = left_reg[r][prev_c]
+                    prev_r = (r - 1) % mat_size
+                    next_up[r][c]   = up_reg[prev_r][c]
+            left_reg = next_left
+            up_reg   = next_up
+
+    prod = np.zeros((mat_size, mat_size), dtype=np.int64)
     for r in range(mat_size):
         for c in range(mat_size):
-            product = int(left_reg[r][c]) * int(up_reg[r][c])
-            shifted = asr_32bit(product, frac_bits)
-            psum[r][c] += shifted
-    
-    pe_down  = up_reg.copy()
-    pe_right = left_reg.copy()
-    
-    # Cycles 2..5: S_RUN (MOVE + MULT_ADD)
-    for step in range(mat_size - 1):
-        new_up_reg   = np.zeros_like(up_reg)
-        new_left_reg = np.zeros_like(left_reg)
-        for r in range(mat_size):
-            for c in range(mat_size):
-                src_r = (r - 1) % mat_size
-                new_up_reg[r][c] = pe_down[src_r][c]
-                src_c = (c - 1) % mat_size
-                new_left_reg[r][c] = pe_right[r][src_c]
-        
-        up_reg   = new_up_reg
-        left_reg = new_left_reg
-        
-        for r in range(mat_size):
-            for c in range(mat_size):
-                product = int(left_reg[r][c]) * int(up_reg[r][c])
-                shifted = asr_32bit(product, frac_bits)
-                psum[r][c] += shifted
-        
-        pe_down  = up_reg.copy()
-        pe_right = left_reg.copy()
-    
-    return psum
+            prod[r][c] = psum[c][r]
 
-def run_gemm_rtl_sim(layer, N, K, M, get_a_fn, weights, bias):
+    return prod
+
+def run_gemm_rtl_sim(layer, N, K, M, get_a_fn, weights, bias, SA_SIZE=5):
     out = np.zeros((M, N), dtype=np.int64)
-    SA_SIZE = 5
     for n_base in range(0, N, SA_SIZE):
         for m_base in range(0, M, SA_SIZE):
             acc_tile = np.zeros((SA_SIZE, SA_SIZE), dtype=np.int64)
+
             for k_base in range(0, K, SA_SIZE):
                 a_tile = np.zeros((SA_SIZE, SA_SIZE), dtype=np.int64)
+                b_tile = np.zeros((SA_SIZE, SA_SIZE), dtype=np.int64)
+
                 for rr in range(SA_SIZE):
                     for cc in range(SA_SIZE):
                         n_idx = n_base + rr
                         k_idx = k_base + cc
                         if n_idx < N and k_idx < K:
                             a_tile[rr][cc] = get_a_fn(n_idx, k_idx)
-                
-                b_tile = np.zeros((SA_SIZE, SA_SIZE), dtype=np.int64)
+
                 for rr in range(SA_SIZE):
                     for cc in range(SA_SIZE):
                         k_idx = k_base + rr
                         m_idx = m_base + cc
                         if k_idx < K and m_idx < M:
                             b_tile[rr][cc] = weights[m_idx * K + k_idx]
-                
-                p_tile = torus_tile_FIXED(a_tile, b_tile)
+
+                p_tile = torus_tile_FIXED(a_tile, b_tile, SA_SIZE, 8)
                 acc_tile += p_tile
-            
+
             for rr in range(SA_SIZE):
                 for cc in range(SA_SIZE):
                     m_idx = m_base + rr
@@ -144,8 +133,9 @@ def run_pool(in_data, CH, H, W):
     return out
 
 def main():
-    base_dir = os.path.dirname(os.path.abspath(__file__))
-    wdir = os.path.join(base_dir, 'weights')
+    root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    wdir = os.path.join(root_dir, 'data', 'weights')
+    
     w_c1 = read_hex_weights(os.path.join(wdir, 'conv1_weight.txt'), 6*25)
     b_c1 = read_hex_weights(os.path.join(wdir, 'conv1_bias.txt'), 6)
     w_c2 = read_hex_weights(os.path.join(wdir, 'conv2_weight.txt'), 16*150)
@@ -157,13 +147,13 @@ def main():
     w_f2 = read_hex_weights(os.path.join(wdir, 'fc2_weight.txt'), 10*84)
     b_f2 = read_hex_weights(os.path.join(wdir, 'fc2_bias.txt'), 10)
 
-    images = read_hex_images(os.path.join(base_dir, 'verilog', 'test_data', 'test_images.hex'), 20*32*32).reshape(20, 32, 32)
-    # Ground truth labels for first 20 test images of FashionMNIST
+    data_dir = os.path.join(root_dir, 'data')
+    images = read_hex_images(os.path.join(data_dir, 'test_images.hex'), 20*32*32).reshape(20, 32, 32)
     labels = [9, 2, 1, 1, 6, 1, 4, 6, 5, 7, 4, 5, 7, 3, 4, 1, 2, 4, 8, 0]
 
     correct = 0
     print("="*60)
-    print("SIMULATING FULL INFERENCE WITH FIXED CONTROLLER TIMING")
+    print("SIMULATING FULL INFERENCE WITH TORUS HARDWARE ACCELERATOR")
     print("="*60)
 
     for i in range(20):
