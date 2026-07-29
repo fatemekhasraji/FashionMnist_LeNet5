@@ -44,6 +44,7 @@ graph LR
     style FC2 fill:#1e293b,stroke:#c084fc,color:#fff
     style ARG fill:#1e293b,stroke:#34d399,color:#fff
 ```
+### 2. Torus Systolic Array Mapping
 
 ### 1. 2D Torus Systolic Array (`SA.sv`)
 - **Structure**: 5x5 Processing Element (PE) matrix connected in a 2D toroidal topology.
