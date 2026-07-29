@@ -46,17 +46,17 @@ graph LR
 ```
 ### 2. Torus Systolic Array Mapping
 
-### 1. 2D Torus Systolic Array (`SA.sv`)
+#### 1. 2D Torus Systolic Array (`SA.sv`)
 - **Structure**: 5x5 Processing Element (PE) matrix connected in a 2D toroidal topology.
 - **Toroidal Wrapping**: Left-shift and Up-shift outputs wrap cyclically around array edges.
 - **Benefits**: Eliminates global data broadcast signals, reduces routing congestion, and increases clock frequency compared to standard global broadcast architectures.
 
-### 2. Processing Element (`PE.sv`)
+#### 2. Processing Element (`PE.sv`)
 - **MAC Engine**: 16-bit signed fixed-point multiplier with 32-bit accumulator.
 - **Fixed-Point Specification**: Q8.8 format (8 integer bits, 8 fractional bits).
 - **Overflow Protection & Clamping**: Includes saturation logic and arithmetic right shift by 8 bits for output normalization.
 
-### 3. Execution Controller (`Controller.sv`)
+#### 3. Execution Controller (`Controller.sv`)
 - **State Machine**: Controls 5x5 matrix tile multiplication, data shifting, matrix load/store operations, and pooling modes.
 - **Multi-layer Sequencing**: Seamlessly transitions between Convolutional (im2col tiles), Pooling (2x2 spatial downsampling), and Dense (FC) layers.
 
