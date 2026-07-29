@@ -20,7 +20,7 @@ The repository features a complete end-to-end flow:
 
 ## 🏗 System Architecture
 
-![LeNet-5 2D Torus Hardware Architecture](docs/system_architecture.svg)
+![LeNet-5 2D Torus Hardware Architecture](img/system_architecture.svg)
 
 ### 1. LeNet-5 Top-Level Hardware Pipeline (`Top.sv`)
 ```mermaid
