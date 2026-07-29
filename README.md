@@ -56,8 +56,8 @@ graph TD
     end
 
     subgraph Skew_Logic["Input Skewing Unit (SA.sv)"]
-        A_FLAT["flat_A [399:0]"] --> SKEW_A["up[r][c] = Matrix_A[c][temp]"]
-        B_FLAT["flat_B [399:0]"] --> SKEW_B["left[r][c] = Matrix_B[temp][r]"]
+        A_FLAT["flat_A 400-bit"] --> SKEW_A["up = Matrix_A"]
+        B_FLAT["flat_B 400-bit"] --> SKEW_B["left = Matrix_B"]
         NOTE_TEMP["temp = (5 - ((r + 1 + c) % 5)) % 5"]
     end
 
@@ -87,15 +87,15 @@ graph TD
     end
 
     subgraph PE_Module["PE Internal Logic (PE.sv)"]
-        PE_IN_U["up [15:0]"] --> PE_OUT_D["down = up"]
-        PE_IN_L["left [15:0]"] --> PE_OUT_R["right = left"]
+        PE_IN_U["up 16-bit"] --> PE_OUT_D["down = up"]
+        PE_IN_L["left 16-bit"] --> PE_OUT_R["right = left"]
         PE_IN_U & PE_IN_L --> PE_MAC["16×16 Mult >>> 8 + psum"]
-        PE_MAC --> PE_PROD["prod [31:0] Out"]
+        PE_MAC --> PE_PROD["prod 32-bit Out"]
     end
 
-    Skew_Logic -->|START: Load up_reg & left_reg| Torus_Grid
+    Skew_Logic -->|START: Load Registers| Torus_Grid
     Controller_FSM -->|MOVE & MULT_ADD Signals| Torus_Grid
-    Torus_Grid -->|FINISH: Capture prod[r][c]| MAT_C["Matrix_C Output [799:0]"]
+    Torus_Grid -->|FINISH: Capture Product Matrix| MAT_C["Matrix_C Output 800-bit"]
 ```
 
 ### 1. 2D Torus Systolic Array Microkernel (`SA.sv`)
