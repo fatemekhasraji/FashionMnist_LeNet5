@@ -1,4 +1,4 @@
-# FPGA Acceleration of LeNet-5 CNN for Fashion-MNIST via 2D Torus Systolic Array Microkernel
+# FPGA Acceleration of LeNet-5 CNN for Fashion-MNIST via 2D Torus Systolic Array
 
 ![Language](https://img.shields.io/badge/Language-SystemVerilog-blue)
 ![Tools](https://img.shields.io/badge/EDA-Xilinx%20Vivado-red)
