@@ -1,0 +1,35 @@
+# Vivado build artifacts & cache
+*.cache/
+*.hw/
+*.ip_user_files/
+.Xil/
+xsim.dir/
+synth_results/
+*.jou
+*.log
+*.pb
+*.wdb
+*.backup.*
+*.backup
+
+# Datasets and model checkpoints
+FashionMnist_LeNet5.sim/sim_1/behav/xsim/data/
+*.pth
+*.gz
+*.ubyte
+
+# Temporary simulation batch scripts & test files
+FashionMnist_LeNet5.sim/sim_1/behav/xsim/sim_run/
+FashionMnist_LeNet5.sim/sim_1/behav/xsim/*.bat
+FashionMnist_LeNet5.sim/sim_1/behav/xsim/full_6c_test.py
+FashionMnist_LeNet5.sim/sim_1/behav/xsim/tb_torus_standalone.sv
+FashionMnist_LeNet5.sim/sim_1/behav/xsim/glbl.v
+FashionMnist_LeNet5.sim/sim_1/behav/xsim/*.tcl
+FashionMnist_LeNet5.sim/sim_1/behav/xsim/*.prj
+FashionMnist_LeNet5.sim/sim_1/behav/xsim/xsim.ini
+
+# Python bytecode and OS files
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db

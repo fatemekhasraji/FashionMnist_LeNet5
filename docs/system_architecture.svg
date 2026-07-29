@@ -1,0 +1,318 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#070b19"/>
+      <stop offset="50%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e1b4b"/>
+    </linearGradient>
+
+    <linearGradient id="pe-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+
+    <linearGradient id="ctrl-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b0764"/>
+      <stop offset="100%" stop-color="#6b21a8"/>
+    </linearGradient>
+
+    <linearGradient id="pipe-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#065f46"/>
+      <stop offset="50%" stop-color="#0284c7"/>
+      <stop offset="100%" stop-color="#6d28d9"/>
+    </linearGradient>
+
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#000" flood-opacity="0.6"/>
+    </filter>
+
+    <marker id="arr-r" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#38bdf8"/>
+    </marker>
+    <marker id="arr-d" viewBox="0 0 10 10" refX="5" refY="7" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 1.5 0 L 5 8 L 8.5 0 z" fill="#34d399"/>
+    </marker>
+    <marker id="arr-torus-h" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#f59e0b"/>
+    </marker>
+    <marker id="arr-torus-v" viewBox="0 0 10 10" refX="5" refY="6" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 1.5 0 L 5 8 L 8.5 0 z" fill="#ec4899"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="900" fill="url(#bg-grad)" rx="16"/>
+
+  <!-- Main Title Header -->
+  <text x="600" y="38" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="bold" fill="#f8fafc" text-anchor="middle">
+    Fashion-MNIST LeNet-5 CNN Hardware Accelerator Top Architecture
+  </text>
+  <text x="600" y="60" font-family="sans-serif" font-size="13" fill="#94a3b8" text-anchor="middle">
+    Full Datapath (Top.sv) with 5×5 2D Torus Systolic Array (SA.sv), FSM Controller (Controller.sv) &amp; Q8.8 PE Grid (PE.sv)
+  </text>
+
+  <!-- SECTION 1: TOP-LEVEL LENET-5 LAYER PIPELINE (Top.sv) -->
+  <g transform="translate(30, 80)" filter="url(#shadow)">
+    <rect width="1140" height="110" rx="12" fill="#0f172a" stroke="#6366f1" stroke-width="2"/>
+    <text x="570" y="25" font-family="sans-serif" font-size="14" font-weight="bold" fill="#818cf8" text-anchor="middle">
+      LeNet-5 Hardware Layer Sequence Pipeline (Top.sv)
+    </text>
+
+    <!-- Pipeline Stages -->
+    <g transform="translate(25, 40)" font-family="sans-serif">
+      <!-- Input -->
+      <rect x="0" y="0" width="105" height="50" rx="6" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="52.5" y="22" font-size="11" font-weight="bold" fill="#38bdf8" text-anchor="middle">Image Input</text>
+      <text x="52.5" y="38" font-size="10" fill="#cbd5e1" text-anchor="middle">32×32 (Q8.8)</text>
+
+      <path d="M 105 25 L 125 25" stroke="#94a3b8" stroke-width="2" marker-end="url(#arr-r)"/>
+
+      <!-- Conv1 -->
+      <rect x="125" y="0" width="115" height="50" rx="6" fill="#1e293b" stroke="#34d399" stroke-width="1.5"/>
+      <text x="182.5" y="22" font-size="11" font-weight="bold" fill="#34d399" text-anchor="middle">Conv1 (im2col)</text>
+      <text x="182.5" y="38" font-size="10" fill="#cbd5e1" text-anchor="middle">6 @ 28×28</text>
+
+      <path d="M 240 25 L 260 25" stroke="#94a3b8" stroke-width="2" marker-end="url(#arr-r)"/>
+
+      <!-- Pool1 -->
+      <rect x="260" y="0" width="105" height="50" rx="6" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>
+      <text x="312.5" y="22" font-size="11" font-weight="bold" fill="#f59e0b" text-anchor="middle">Pool1 (2×2 Avg)</text>
+      <text x="312.5" y="38" font-size="10" fill="#cbd5e1" text-anchor="middle">6 @ 14×14</text>
+
+      <path d="M 365 25 L 385 25" stroke="#94a3b8" stroke-width="2" marker-end="url(#arr-r)"/>
+
+      <!-- Conv2 -->
+      <rect x="385" y="0" width="115" height="50" rx="6" fill="#1e293b" stroke="#34d399" stroke-width="1.5"/>
+      <text x="442.5" y="22" font-size="11" font-weight="bold" fill="#34d399" text-anchor="middle">Conv2 (im2col)</text>
+      <text x="442.5" y="38" font-size="10" fill="#cbd5e1" text-anchor="middle">16 @ 10×10</text>
+
+      <path d="M 500 25 L 520 25" stroke="#94a3b8" stroke-width="2" marker-end="url(#arr-r)"/>
+
+      <!-- Pool2 -->
+      <rect x="520" y="0" width="105" height="50" rx="6" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>
+      <text x="572.5" y="22" font-size="11" font-weight="bold" fill="#f59e0b" text-anchor="middle">Pool2 (2×2 Avg)</text>
+      <text x="572.5" y="38" font-size="10" fill="#cbd5e1" text-anchor="middle">16 @ 5×5</text>
+
+      <path d="M 625 25 L 645 25" stroke="#94a3b8" stroke-width="2" marker-end="url(#arr-r)"/>
+
+      <!-- Conv3 -->
+      <rect x="645" y="0" width="115" height="50" rx="6" fill="#1e293b" stroke="#34d399" stroke-width="1.5"/>
+      <text x="702.5" y="22" font-size="11" font-weight="bold" fill="#34d399" text-anchor="middle">Conv3 (im2col)</text>
+      <text x="702.5" y="38" font-size="10" fill="#cbd5e1" text-anchor="middle">120 @ 1×1</text>
+
+      <path d="M 760 25 L 780 25" stroke="#94a3b8" stroke-width="2" marker-end="url(#arr-r)"/>
+
+      <!-- FC1 -->
+      <rect x="780" y="0" width="95" height="50" rx="6" fill="#1e293b" stroke="#c084fc" stroke-width="1.5"/>
+      <text x="827.5" y="22" font-size="11" font-weight="bold" fill="#c084fc" text-anchor="middle">FC1 Dense</text>
+      <text x="827.5" y="38" font-size="10" fill="#cbd5e1" text-anchor="middle">120 → 84</text>
+
+      <path d="M 875 25 L 895 25" stroke="#94a3b8" stroke-width="2" marker-end="url(#arr-r)"/>
+
+      <!-- FC2 -->
+      <rect x="895" y="0" width="95" height="50" rx="6" fill="#1e293b" stroke="#c084fc" stroke-width="1.5"/>
+      <text x="942.5" y="22" font-size="11" font-weight="bold" fill="#c084fc" text-anchor="middle">FC2 Dense</text>
+      <text x="942.5" y="38" font-size="10" fill="#cbd5e1" text-anchor="middle">84 → 10</text>
+
+      <path d="M 990 25 L 1010 25" stroke="#94a3b8" stroke-width="2" marker-end="url(#arr-r)"/>
+
+      <!-- Argmax Output -->
+      <rect x="1010" y="0" width="80" height="50" rx="6" fill="#1e293b" stroke="#34d399" stroke-width="2"/>
+      <text x="1050" y="22" font-size="11" font-weight="bold" fill="#34d399" text-anchor="middle">Argmax</text>
+      <text x="1050" y="38" font-size="10" fill="#f8fafc" text-anchor="middle">Class 0..9</text>
+    </g>
+  </g>
+
+  <!-- SECTION 2: COMPUTE MICROKERNEL ENGINE (Controller.sv + SA.sv + PE.sv) -->
+  
+  <!-- Left Side: FSM Controller & Diagonal Skew Module -->
+  <g transform="translate(30, 210)" filter="url(#shadow)">
+    <rect width="260" height="660" rx="12" fill="#0f172a" stroke="#a855f7" stroke-width="2"/>
+    <text x="130" y="30" font-family="sans-serif" font-size="14" font-weight="bold" fill="#a855f7" text-anchor="middle">Controller &amp; Skew Units</text>
+
+    <!-- FSM Controller Box -->
+    <rect x="15" y="55" width="230" height="210" rx="8" fill="url(#ctrl-grad)" stroke="#c084fc" stroke-width="1.5"/>
+    <text x="130" y="80" font-family="sans-serif" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">Controller.sv FSM</text>
+    
+    <g font-family="sans-serif" font-size="11" fill="#f3e8ff">
+      <text x="30" y="105">• S_IDLE  (State 0)</text>
+      <text x="30" y="125">• S_PRIME (State 1: MULT_ADD=1)</text>
+      <text x="30" y="145">• S_RUN   (State 2: MOVE=1, MAC)</text>
+      <text x="30" y="165">• S_DONE  (State 3: FINISH=1)</text>
+    </g>
+    <rect x="25" y="180" width="210" height="70" rx="6" fill="#0f172a"/>
+    <text x="130" y="200" font-family="sans-serif" font-size="10" font-weight="bold" fill="#38bdf8" text-anchor="middle">FSM Control Outputs:</text>
+    <text x="130" y="218" font-family="sans-serif" font-size="10" fill="#cbd5e1" text-anchor="middle">MULT_ADD = (!op_sel &amp; PRIME/RUN)</text>
+    <text x="130" y="235" font-family="sans-serif" font-size="10" fill="#cbd5e1" text-anchor="middle">MOVE = (!op_sel &amp; RUN)</text>
+
+    <!-- Diagonal Data Skewing Unit -->
+    <rect x="15" y="275" width="230" height="230" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="130" y="298" font-family="sans-serif" font-size="13" font-weight="bold" fill="#38bdf8" text-anchor="middle">Data Skew Logic (SA.sv)</text>
+    <text x="130" y="318" font-family="sans-serif" font-size="10" fill="#94a3b8" text-anchor="middle">Initial Shift Pre-loading on START</text>
+
+    <rect x="25" y="330" width="210" height="75" rx="5" fill="#0f172a" stroke="#60a5fa" stroke-width="1"/>
+    <text x="130" y="350" font-family="sans-serif" font-size="10" font-weight="bold" fill="#60a5fa" text-anchor="middle">Matrix_A [5×5] (Activations)</text>
+    <text x="130" y="370" font-family="sans-serif" font-size="10" fill="#cbd5e1" text-anchor="middle">up[r][c] = Matrix_A[c][temp]</text>
+    <text x="130" y="390" font-family="sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">Loaded on START</text>
+
+    <rect x="25" y="415" width="210" height="80" rx="5" fill="#0f172a" stroke="#34d399" stroke-width="1"/>
+    <text x="130" y="435" font-family="sans-serif" font-size="10" font-weight="bold" fill="#34d399" text-anchor="middle">Matrix_B [5×5] (Weights)</text>
+    <text x="130" y="455" font-family="sans-serif" font-size="10" fill="#cbd5e1" text-anchor="middle">left[r][c] = Matrix_B[temp][r]</text>
+    <text x="130" y="478" font-family="sans-serif" font-size="9" font-weight="bold" fill="#f59e0b" text-anchor="middle">temp = (5 - ((r + 1 + c) % 5)) % 5</text>
+
+    <!-- Matrix C Capture -->
+    <rect x="15" y="515" width="230" height="130" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>
+    <text x="130" y="530" font-family="sans-serif" font-size="13" font-weight="bold" fill="#f59e0b" text-anchor="middle">Matrix_C Capture (SA.sv)</text>
+    <text x="130" y="555" font-family="sans-serif" font-size="10" fill="#cbd5e1" text-anchor="middle">always @(posedge clk)</text>
+    <text x="130" y="575" font-family="sans-serif" font-size="10" fill="#cbd5e1" text-anchor="middle">if (FINISH)</text>
+    <text x="130" y="595" font-family="sans-serif" font-size="10" fill="#f8fafc" text-anchor="middle">Matrix_C[c*5+r] &lt;= prod[r][c]</text>
+    <text x="130" y="620" font-family="sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">Full 32-bit Precision Output</text>
+  </g>
+
+  <!-- Middle: 5x5 Torus Systolic Array Grid (SA.sv) -->
+  <g transform="translate(310, 210)" filter="url(#shadow)">
+    <rect width="560" height="660" rx="12" fill="#0b1329" stroke="#10b981" stroke-width="2.5"/>
+    <text x="280" y="35" font-family="sans-serif" font-size="16" font-weight="bold" fill="#10b981" text-anchor="middle">2D Torus Systolic Array (SA.sv: 5×5 PE Grid)</text>
+
+    <!-- Grid origin x=55, y=65; dx=90, dy=110 -->
+    <!-- Row 0 -->
+    <g transform="translate(55, 65)">
+      <g transform="translate(0,0)"><rect width="65" height="55" rx="6" fill="url(#pe-grad)" stroke="#38bdf8" stroke-width="1.5"/><text x="32.5" y="25" font-family="sans-serif" font-size="10" font-weight="bold" fill="#38bdf8" text-anchor="middle">PE(0,0)</text><text x="32.5" y="42" font-family="sans-serif" font-size="8" fill="#94a3b8" text-anchor="middle">PE_inst</text></g>
+      <g transform="translate(90,0)"><rect width="65" height="55" rx="6" fill="url(#pe-grad)" stroke="#38bdf8" stroke-width="1.5"/><text x="32.5" y="25" font-family="sans-serif" font-size="10" font-weight="bold" fill="#38bdf8" text-anchor="middle">PE(0,1)</text><text x="32.5" y="42" font-family="sans-serif" font-size="8" fill="#94a3b8" text-anchor="middle">PE_inst</text></g>
+      <g transform="translate(180,0)"><rect width="65" height="55" rx="6" fill="url(#pe-grad)" stroke="#38bdf8" stroke-width="1.5"/><text x="32.5" y="25" font-family="sans-serif" font-size="10" font-weight="bold" fill="#38bdf8" text-anchor="middle">PE(0,2)</text><text x="32.5" y="42" font-family="sans-serif" font-size="8" fill="#94a3b8" text-anchor="middle">PE_inst</text></g>
+      <g transform="translate(270,0)"><rect width="65" height="55" rx="6" fill="url(#pe-grad)" stroke="#38bdf8" stroke-width="1.5"/><text x="32.5" y="25" font-family="sans-serif" font-size="10" font-weight="bold" fill="#38bdf8" text-anchor="middle">PE(0,3)</text><text x="32.5" y="42" font-family="sans-serif" font-size="8" fill="#94a3b8" text-anchor="middle">PE_inst</text></g>
+      <g transform="translate(360,0)"><rect width="65" height="55" rx="6" fill="url(#pe-grad)" stroke="#38bdf8" stroke-width="1.5"/><text x="32.5" y="25" font-family="sans-serif" font-size="10" font-weight="bold" fill="#38bdf8" text-anchor="middle">PE(0,4)</text><text x="32.5" y="42" font-family="sans-serif" font-size="8" fill="#94a3b8" text-anchor="middle">PE_inst</text></g>
+    </g>
+
+    <!-- Row 1 -->
+    <g transform="translate(55, 175)">
+      <g transform="translate(0,0)"><rect width="65" height="55" rx="6" fill="url(#pe-grad)" stroke="#38bdf8" stroke-width="1.5"/><text x="32.5" y="25" font-family="sans-serif" font-size="10" font-weight="bold" fill="#38bdf8" text-anchor="middle">PE(1,0)</text><text x="32.5" y="42" font-family="sans-serif" font-size="8" fill="#94a3b8" text-anchor="middle">PE_inst</text></g>
+      <g transform="translate(90,0)"><rect width="65" height="55" rx="6" fill="url(#pe-grad)" stroke="#38bdf8" stroke-width="1.5"/><text x="32.5" y="25" font-family="sans-serif" font-size="10" font-weight="bold" fill="#38bdf8" text-anchor="middle">PE(1,1)</text><text x="32.5" y="42" font-family="sans-serif" font-size="8" fill="#94a3b8" text-anchor="middle">PE_inst</text></g>
+      <g transform="translate(180,0)"><rect width="65" height="55" rx="6" fill="url(#pe-grad)" stroke="#38bdf8" stroke-width="1.5"/><text x="32.5" y="25" font-family="sans-serif" font-size="10" font-weight="bold" fill="#38bdf8" text-anchor="middle">PE(1,2)</text><text x="32.5" y="42" font-family="sans-serif" font-size="8" fill="#94a3b8" text-anchor="middle">PE_inst</text></g>
+      <g transform="translate(270,0)"><rect width="65" height="55" rx="6" fill="url(#pe-grad)" stroke="#38bdf8" stroke-width="1.5"/><text x="32.5" y="25" font-family="sans-serif" font-size="10" font-weight="bold" fill="#38bdf8" text-anchor="middle">PE(1,3)</text><text x="32.5" y="42" font-family="sans-serif" font-size="8" fill="#94a3b8" text-anchor="middle">PE_inst</text></g>
+      <g transform="translate(360,0)"><rect width="65" height="55" rx="6" fill="url(#pe-grad)" stroke="#38bdf8" stroke-width="1.5"/><text x="32.5" y="25" font-family="sans-serif" font-size="10" font-weight="bold" fill="#38bdf8" text-anchor="middle">PE(1,4)</text><text x="32.5" y="42" font-family="sans-serif" font-size="8" fill="#94a3b8" text-anchor="middle">PE_inst</text></g>
+    </g>
+
+    <!-- Row 2 -->
+    <g transform="translate(55, 285)">
+      <g transform="translate(0,0)"><rect width="65" height="55" rx="6" fill="url(#pe-grad)" stroke="#38bdf8" stroke-width="1.5"/><text x="32.5" y="25" font-family="sans-serif" font-size="10" font-weight="bold" fill="#38bdf8" text-anchor="middle">PE(2,0)</text><text x="32.5" y="42" font-family="sans-serif" font-size="8" fill="#94a3b8" text-anchor="middle">PE_inst</text></g>
+      <g transform="translate(90,0)"><rect width="65" height="55" rx="6" fill="url(#pe-grad)" stroke="#38bdf8" stroke-width="1.5"/><text x="32.5" y="25" font-family="sans-serif" font-size="10" font-weight="bold" fill="#38bdf8" text-anchor="middle">PE(2,1)</text><text x="32.5" y="42" font-family="sans-serif" font-size="8" fill="#94a3b8" text-anchor="middle">PE_inst</text></g>
+      <g transform="translate(180,0)"><rect width="65" height="55" rx="6" fill="url(#pe-grad)" stroke="#60a5fa" stroke-width="2.5"/><text x="32.5" y="25" font-family="sans-serif" font-size="10" font-weight="bold" fill="#60a5fa" text-anchor="middle">PE(2,2)</text><text x="32.5" y="42" font-family="sans-serif" font-size="8" fill="#93c5fd" text-anchor="middle">MAC Engine</text></g>
+      <g transform="translate(270,0)"><rect width="65" height="55" rx="6" fill="url(#pe-grad)" stroke="#38bdf8" stroke-width="1.5"/><text x="32.5" y="25" font-family="sans-serif" font-size="10" font-weight="bold" fill="#38bdf8" text-anchor="middle">PE(2,3)</text><text x="32.5" y="42" font-family="sans-serif" font-size="8" fill="#94a3b8" text-anchor="middle">PE_inst</text></g>
+      <g transform="translate(360,0)"><rect width="65" height="55" rx="6" fill="url(#pe-grad)" stroke="#38bdf8" stroke-width="1.5"/><text x="32.5" y="25" font-family="sans-serif" font-size="10" font-weight="bold" fill="#38bdf8" text-anchor="middle">PE(2,4)</text><text x="32.5" y="42" font-family="sans-serif" font-size="8" fill="#94a3b8" text-anchor="middle">PE_inst</text></g>
+    </g>
+
+    <!-- Row 3 -->
+    <g transform="translate(55, 395)">
+      <g transform="translate(0,0)"><rect width="65" height="55" rx="6" fill="url(#pe-grad)" stroke="#38bdf8" stroke-width="1.5"/><text x="32.5" y="25" font-family="sans-serif" font-size="10" font-weight="bold" fill="#38bdf8" text-anchor="middle">PE(3,0)</text><text x="32.5" y="42" font-family="sans-serif" font-size="8" fill="#94a3b8" text-anchor="middle">PE_inst</text></g>
+      <g transform="translate(90,0)"><rect width="65" height="55" rx="6" fill="url(#pe-grad)" stroke="#38bdf8" stroke-width="1.5"/><text x="32.5" y="25" font-family="sans-serif" font-size="10" font-weight="bold" fill="#38bdf8" text-anchor="middle">PE(3,1)</text><text x="32.5" y="42" font-family="sans-serif" font-size="8" fill="#94a3b8" text-anchor="middle">PE_inst</text></g>
+      <g transform="translate(180,0)"><rect width="65" height="55" rx="6" fill="url(#pe-grad)" stroke="#38bdf8" stroke-width="1.5"/><text x="32.5" y="25" font-family="sans-serif" font-size="10" font-weight="bold" fill="#38bdf8" text-anchor="middle">PE(3,2)</text><text x="32.5" y="42" font-family="sans-serif" font-size="8" fill="#94a3b8" text-anchor="middle">PE_inst</text></g>
+      <g transform="translate(270,0)"><rect width="65" height="55" rx="6" fill="url(#pe-grad)" stroke="#38bdf8" stroke-width="1.5"/><text x="32.5" y="25" font-family="sans-serif" font-size="10" font-weight="bold" fill="#38bdf8" text-anchor="middle">PE(3,3)</text><text x="32.5" y="42" font-family="sans-serif" font-size="8" fill="#94a3b8" text-anchor="middle">PE_inst</text></g>
+      <g transform="translate(360,0)"><rect width="65" height="55" rx="6" fill="url(#pe-grad)" stroke="#38bdf8" stroke-width="1.5"/><text x="32.5" y="25" font-family="sans-serif" font-size="10" font-weight="bold" fill="#38bdf8" text-anchor="middle">PE(3,4)</text><text x="32.5" y="42" font-family="sans-serif" font-size="8" fill="#94a3b8" text-anchor="middle">PE_inst</text></g>
+    </g>
+
+    <!-- Row 4 -->
+    <g transform="translate(55, 505)">
+      <g transform="translate(0,0)"><rect width="65" height="55" rx="6" fill="url(#pe-grad)" stroke="#38bdf8" stroke-width="1.5"/><text x="32.5" y="25" font-family="sans-serif" font-size="10" font-weight="bold" fill="#38bdf8" text-anchor="middle">PE(4,0)</text><text x="32.5" y="42" font-family="sans-serif" font-size="8" fill="#94a3b8" text-anchor="middle">PE_inst</text></g>
+      <g transform="translate(90,0)"><rect width="65" height="55" rx="6" fill="url(#pe-grad)" stroke="#38bdf8" stroke-width="1.5"/><text x="32.5" y="25" font-family="sans-serif" font-size="10" font-weight="bold" fill="#38bdf8" text-anchor="middle">PE(4,1)</text><text x="32.5" y="42" font-family="sans-serif" font-size="8" fill="#94a3b8" text-anchor="middle">PE_inst</text></g>
+      <g transform="translate(180,0)"><rect width="65" height="55" rx="6" fill="url(#pe-grad)" stroke="#38bdf8" stroke-width="1.5"/><text x="32.5" y="25" font-family="sans-serif" font-size="10" font-weight="bold" fill="#38bdf8" text-anchor="middle">PE(4,2)</text><text x="32.5" y="42" font-family="sans-serif" font-size="8" fill="#94a3b8" text-anchor="middle">PE_inst</text></g>
+      <g transform="translate(270,0)"><rect width="65" height="55" rx="6" fill="url(#pe-grad)" stroke="#38bdf8" stroke-width="1.5"/><text x="32.5" y="25" font-family="sans-serif" font-size="10" font-weight="bold" fill="#38bdf8" text-anchor="middle">PE(4,3)</text><text x="32.5" y="42" font-family="sans-serif" font-size="8" fill="#94a3b8" text-anchor="middle">PE_inst</text></g>
+      <g transform="translate(360,0)"><rect width="65" height="55" rx="6" fill="url(#pe-grad)" stroke="#38bdf8" stroke-width="1.5"/><text x="32.5" y="25" font-family="sans-serif" font-size="10" font-weight="bold" fill="#38bdf8" text-anchor="middle">PE(4,4)</text><text x="32.5" y="42" font-family="sans-serif" font-size="8" fill="#94a3b8" text-anchor="middle">PE_inst</text></g>
+    </g>
+
+    <!-- HORIZONTAL NEIGHBOR ARROWS (left -> right) -->
+    <g stroke="#38bdf8" stroke-width="2" marker-end="url(#arr-r)">
+      <!-- Row 0 --> <line x1="120" y1="92" x2="145" y2="92"/><line x1="210" y1="92" x2="235" y2="92"/><line x1="300" y1="92" x2="325" y2="92"/><line x1="390" y1="92" x2="415" y2="92"/>
+      <!-- Row 1 --> <line x1="120" y1="202" x2="145" y2="202"/><line x1="210" y1="202" x2="235" y2="202"/><line x1="300" y1="202" x2="325" y2="202"/><line x1="390" y1="202" x2="415" y2="202"/>
+      <!-- Row 2 --> <line x1="120" y1="312" x2="145" y2="312"/><line x1="210" y1="312" x2="235" y2="312"/><line x1="300" y1="312" x2="325" y2="312"/><line x1="390" y1="312" x2="415" y2="312"/>
+      <!-- Row 3 --> <line x1="120" y1="422" x2="145" y2="422"/><line x1="210" y1="422" x2="235" y2="422"/><line x1="300" y1="422" x2="325" y2="422"/><line x1="390" y1="422" x2="415" y2="422"/>
+      <!-- Row 4 --> <line x1="120" y1="532" x2="145" y2="532"/><line x1="210" y1="532" x2="235" y2="532"/><line x1="300" y1="532" x2="325" y2="532"/><line x1="390" y1="532" x2="415" y2="532"/>
+    </g>
+
+    <!-- VERTICAL NEIGHBOR ARROWS (top -> down) -->
+    <g stroke="#34d399" stroke-width="2" marker-end="url(#arr-d)">
+      <!-- Col 0 --> <line x1="87" y1="120" x2="87" y2="170"/><line x1="87" y1="230" x2="87" y2="280"/><line x1="87" y1="340" x2="87" y2="390"/><line x1="87" y1="450" x2="87" y2="500"/>
+      <!-- Col 1 --> <line x1="177" y1="120" x2="177" y2="170"/><line x1="177" y1="230" x2="177" y2="280"/><line x1="177" y1="340" x2="177" y2="390"/><line x1="177" y1="450" x2="177" y2="500"/>
+      <!-- Col 2 --> <line x1="267" y1="120" x2="267" y2="170"/><line x1="267" y1="230" x2="267" y2="280"/><line x1="267" y1="340" x2="267" y2="390"/><line x1="267" y1="450" x2="267" y2="500"/>
+      <!-- Col 3 --> <line x1="357" y1="120" x2="357" y2="170"/><line x1="357" y1="230" x2="357" y2="280"/><line x1="357" y1="340" x2="357" y2="390"/><line x1="357" y1="450" x2="357" y2="500"/>
+      <!-- Col 4 --> <line x1="447" y1="120" x2="447" y2="170"/><line x1="447" y1="230" x2="447" y2="280"/><line x1="447" y1="340" x2="447" y2="390"/><line x1="447" y1="450" x2="447" y2="500"/>
+    </g>
+
+    <!-- HORIZONTAL TOROIDAL WRAP-AROUND (right[r][4] -> left_reg[r][0]) -->
+    <g stroke="#f59e0b" stroke-width="2" fill="none" stroke-dasharray="4,3" marker-end="url(#arr-torus-h)">
+      <path d="M 485 92 C 530 92 530 47 55 47 C 20 47 20 92 50 92"/>
+      <path d="M 485 202 C 530 202 530 157 55 157 C 20 157 20 202 50 202"/>
+      <path d="M 485 312 C 530 312 530 267 55 267 C 20 267 20 312 50 312"/>
+      <path d="M 485 422 C 530 422 530 377 55 377 C 20 377 20 422 50 422"/>
+      <path d="M 485 532 C 530 532 530 487 55 487 C 20 487 20 532 50 532"/>
+    </g>
+
+    <!-- VERTICAL TOROIDAL WRAP-AROUND (down[4][c] -> up_reg[0][c]) -->
+    <g stroke="#ec4899" stroke-width="2" fill="none" stroke-dasharray="4,3" marker-end="url(#arr-torus-v)">
+      <path d="M 87 560 C 87 635 15 635 15 65 C 15 35 87 35 87 60"/>
+      <path d="M 177 560 C 177 645 105 645 105 65 C 105 35 177 35 177 60"/>
+      <path d="M 267 560 C 267 655 195 655 195 65 C 195 35 267 35 267 60"/>
+      <path d="M 357 560 C 357 645 285 645 285 65 C 285 35 357 35 357 60"/>
+      <path d="M 447 560 C 447 635 375 635 375 65 C 375 35 447 35 447 60"/>
+    </g>
+  </g>
+
+  <!-- Right Side: Exact Processing Element Datapath (PE.sv) -->
+  <g transform="translate(890, 210)" filter="url(#shadow)">
+    <rect width="280" height="660" rx="12" fill="#0f172a" stroke="#38bdf8" stroke-width="2"/>
+    <text x="140" y="30" font-family="sans-serif" font-size="14" font-weight="bold" fill="#38bdf8" text-anchor="middle">PE Datapath (PE.sv)</text>
+
+    <!-- Ports -->
+    <rect x="20" y="55" width="105" height="35" rx="6" fill="#1e293b" stroke="#34d399" stroke-width="1.5"/>
+    <text x="72.5" y="77" font-family="sans-serif" font-size="11" font-weight="bold" fill="#34d399" text-anchor="middle">up [15:0] In</text>
+
+    <rect x="155" y="55" width="105" height="35" rx="6" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="207.5" y="77" font-family="sans-serif" font-size="11" font-weight="bold" fill="#38bdf8" text-anchor="middle">left [15:0] In</text>
+
+    <!-- Pass through assignments: assign down = up; assign right = left; -->
+    <path d="M 72.5 90 L 72.5 220" stroke="#34d399" stroke-width="2"/>
+    <path d="M 207.5 90 L 207.5 220" stroke="#38bdf8" stroke-width="2"/>
+
+    <rect x="20" y="220" width="105" height="35" rx="6" fill="#1e293b" stroke="#34d399" stroke-width="1.5"/>
+    <text x="72.5" y="242" font-family="sans-serif" font-size="10" font-weight="bold" fill="#34d399" text-anchor="middle">down = up</text>
+
+    <rect x="165" y="220" width="105" height="35" rx="6" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="217.5" y="242" font-family="sans-serif" font-size="10" font-weight="bold" fill="#38bdf8" text-anchor="middle">right = left</text>
+
+    <!-- Multiplier Branch -->
+    <path d="M 72.5 135 L 115 135 L 115 295" stroke="#34d399" stroke-width="1.5"/>
+    <path d="M 207.5 135 L 165 135 L 165 295" stroke="#38bdf8" stroke-width="1.5"/>
+
+    <!-- Multiplier Symbol -->
+    <circle cx="140" cy="315" r="22" fill="#1e293b" stroke="#f59e0b" stroke-width="2"/>
+    <text x="140" y="322" font-family="sans-serif" font-size="20" font-weight="bold" fill="#f59e0b" text-anchor="middle">×</text>
+    <text x="140" y="352" font-family="sans-serif" font-size="10" fill="#f59e0b" text-anchor="middle">16x16 Signed Mult</text>
+
+    <path d="M 140 337 L 140 375" stroke="#f59e0b" stroke-width="2"/>
+
+    <!-- Q8.8 Shift Unit -->
+    <rect x="70" y="375" width="140" height="40" rx="6" fill="#1e293b" stroke="#a855f7" stroke-width="1.5"/>
+    <text x="140" y="399" font-family="sans-serif" font-size="11" font-weight="bold" fill="#a855f7" text-anchor="middle">>>> FRAC_BITS (8)</text>
+
+    <path d="M 140 415 L 140 450" stroke="#a855f7" stroke-width="2"/>
+
+    <!-- Adder Symbol -->
+    <circle cx="140" cy="470" r="20" fill="#1e293b" stroke="#10b981" stroke-width="2"/>
+    <text x="140" y="476" font-family="sans-serif" font-size="20" font-weight="bold" fill="#10b981" text-anchor="middle">+</text>
+
+    <path d="M 140 490 L 140 520" stroke="#10b981" stroke-width="2"/>
+
+    <!-- Accumulator Register (psum) -->
+    <rect x="65" y="520" width="150" height="50" rx="6" fill="#1e293b" stroke="#10b981" stroke-width="2"/>
+    <text x="140" y="542" font-family="sans-serif" font-size="11" font-weight="bold" fill="#10b981" text-anchor="middle">psum Reg [31:0]</text>
+    <text x="140" y="558" font-family="sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">Accumulator (MULT_ADD)</text>
+
+    <!-- Feedback loop for psum -->
+    <path d="M 215 545 C 245 545 245 470 160 470" stroke="#10b981" stroke-width="1.5" fill="none" stroke-dasharray="3,3"/>
+
+    <!-- Product Output -->
+    <path d="M 140 570 L 140 595" stroke="#38bdf8" stroke-width="2"/>
+    <rect x="65" y="595" width="150" height="35" rx="6" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="140" y="617" font-family="sans-serif" font-size="11" font-weight="bold" fill="#38bdf8" text-anchor="middle">prod [31:0] Out</text>
+  </g>
+</svg>

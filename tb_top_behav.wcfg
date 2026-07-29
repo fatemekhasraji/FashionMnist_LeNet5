@@ -1,0 +1,599 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="tb_cnn_top_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="tb_cnn_top" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="10131844989335fs"></ZoomStartTime>
+      <ZoomEndTime time="10131845002133fs"></ZoomEndTime>
+      <Cursor1Time time="10131845000000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="73"></NameColumnWidth>
+      <ValueColumnWidth column_width="72"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="144" />
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[0].PE_inst /clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[0].PE_inst /up" type="array">
+      <obj_property name="ElementShortName">up[15:0]</obj_property>
+      <obj_property name="ObjectShortName">up[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[0].PE_inst /left" type="array">
+      <obj_property name="ElementShortName">left[15:0]</obj_property>
+      <obj_property name="ObjectShortName">left[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[0].PE_inst /START" type="logic">
+      <obj_property name="ElementShortName">START</obj_property>
+      <obj_property name="ObjectShortName">START</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[0].PE_inst /MULT_ADD" type="logic">
+      <obj_property name="ElementShortName">MULT_ADD</obj_property>
+      <obj_property name="ObjectShortName">MULT_ADD</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[0].PE_inst /down" type="array">
+      <obj_property name="ElementShortName">down[15:0]</obj_property>
+      <obj_property name="ObjectShortName">down[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[0].PE_inst /right" type="array">
+      <obj_property name="ElementShortName">right[15:0]</obj_property>
+      <obj_property name="ObjectShortName">right[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[0].PE_inst /prod" type="array">
+      <obj_property name="ElementShortName">prod[31:0]</obj_property>
+      <obj_property name="ObjectShortName">prod[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[0].PE_inst /psum" type="array">
+      <obj_property name="ElementShortName">psum[31:0]</obj_property>
+      <obj_property name="ObjectShortName">psum[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[1].PE_inst /clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[1].PE_inst /up" type="array">
+      <obj_property name="ElementShortName">up[15:0]</obj_property>
+      <obj_property name="ObjectShortName">up[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[1].PE_inst /left" type="array">
+      <obj_property name="ElementShortName">left[15:0]</obj_property>
+      <obj_property name="ObjectShortName">left[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[1].PE_inst /START" type="logic">
+      <obj_property name="ElementShortName">START</obj_property>
+      <obj_property name="ObjectShortName">START</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[1].PE_inst /MULT_ADD" type="logic">
+      <obj_property name="ElementShortName">MULT_ADD</obj_property>
+      <obj_property name="ObjectShortName">MULT_ADD</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[1].PE_inst /down" type="array">
+      <obj_property name="ElementShortName">down[15:0]</obj_property>
+      <obj_property name="ObjectShortName">down[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[1].PE_inst /right" type="array">
+      <obj_property name="ElementShortName">right[15:0]</obj_property>
+      <obj_property name="ObjectShortName">right[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[1].PE_inst /prod" type="array">
+      <obj_property name="ElementShortName">prod[31:0]</obj_property>
+      <obj_property name="ObjectShortName">prod[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[1].PE_inst /psum" type="array">
+      <obj_property name="ElementShortName">psum[31:0]</obj_property>
+      <obj_property name="ObjectShortName">psum[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[2].PE_inst /clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[2].PE_inst /up" type="array">
+      <obj_property name="ElementShortName">up[15:0]</obj_property>
+      <obj_property name="ObjectShortName">up[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[2].PE_inst /left" type="array">
+      <obj_property name="ElementShortName">left[15:0]</obj_property>
+      <obj_property name="ObjectShortName">left[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[2].PE_inst /START" type="logic">
+      <obj_property name="ElementShortName">START</obj_property>
+      <obj_property name="ObjectShortName">START</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[2].PE_inst /MULT_ADD" type="logic">
+      <obj_property name="ElementShortName">MULT_ADD</obj_property>
+      <obj_property name="ObjectShortName">MULT_ADD</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[2].PE_inst /down" type="array">
+      <obj_property name="ElementShortName">down[15:0]</obj_property>
+      <obj_property name="ObjectShortName">down[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[2].PE_inst /right" type="array">
+      <obj_property name="ElementShortName">right[15:0]</obj_property>
+      <obj_property name="ObjectShortName">right[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[2].PE_inst /prod" type="array">
+      <obj_property name="ElementShortName">prod[31:0]</obj_property>
+      <obj_property name="ObjectShortName">prod[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[2].PE_inst /psum" type="array">
+      <obj_property name="ElementShortName">psum[31:0]</obj_property>
+      <obj_property name="ObjectShortName">psum[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[3].PE_inst /clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[3].PE_inst /up" type="array">
+      <obj_property name="ElementShortName">up[15:0]</obj_property>
+      <obj_property name="ObjectShortName">up[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[3].PE_inst /left" type="array">
+      <obj_property name="ElementShortName">left[15:0]</obj_property>
+      <obj_property name="ObjectShortName">left[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[3].PE_inst /START" type="logic">
+      <obj_property name="ElementShortName">START</obj_property>
+      <obj_property name="ObjectShortName">START</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[3].PE_inst /MULT_ADD" type="logic">
+      <obj_property name="ElementShortName">MULT_ADD</obj_property>
+      <obj_property name="ObjectShortName">MULT_ADD</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[3].PE_inst /down" type="array">
+      <obj_property name="ElementShortName">down[15:0]</obj_property>
+      <obj_property name="ObjectShortName">down[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[3].PE_inst /right" type="array">
+      <obj_property name="ElementShortName">right[15:0]</obj_property>
+      <obj_property name="ObjectShortName">right[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[3].PE_inst /prod" type="array">
+      <obj_property name="ElementShortName">prod[31:0]</obj_property>
+      <obj_property name="ObjectShortName">prod[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[3].PE_inst /psum" type="array">
+      <obj_property name="ElementShortName">psum[31:0]</obj_property>
+      <obj_property name="ObjectShortName">psum[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[4].PE_inst /clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[4].PE_inst /up" type="array">
+      <obj_property name="ElementShortName">up[15:0]</obj_property>
+      <obj_property name="ObjectShortName">up[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[4].PE_inst /left" type="array">
+      <obj_property name="ElementShortName">left[15:0]</obj_property>
+      <obj_property name="ObjectShortName">left[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[4].PE_inst /START" type="logic">
+      <obj_property name="ElementShortName">START</obj_property>
+      <obj_property name="ObjectShortName">START</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[4].PE_inst /MULT_ADD" type="logic">
+      <obj_property name="ElementShortName">MULT_ADD</obj_property>
+      <obj_property name="ObjectShortName">MULT_ADD</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[4].PE_inst /down" type="array">
+      <obj_property name="ElementShortName">down[15:0]</obj_property>
+      <obj_property name="ObjectShortName">down[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[4].PE_inst /right" type="array">
+      <obj_property name="ElementShortName">right[15:0]</obj_property>
+      <obj_property name="ObjectShortName">right[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[4].PE_inst /prod" type="array">
+      <obj_property name="ElementShortName">prod[31:0]</obj_property>
+      <obj_property name="ObjectShortName">prod[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[4].PE_inst /psum" type="array">
+      <obj_property name="ElementShortName">psum[31:0]</obj_property>
+      <obj_property name="ObjectShortName">psum[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[1].col[0].PE_inst /clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[1].col[0].PE_inst /up" type="array">
+      <obj_property name="ElementShortName">up[15:0]</obj_property>
+      <obj_property name="ObjectShortName">up[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[1].col[0].PE_inst /left" type="array">
+      <obj_property name="ElementShortName">left[15:0]</obj_property>
+      <obj_property name="ObjectShortName">left[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[1].col[0].PE_inst /START" type="logic">
+      <obj_property name="ElementShortName">START</obj_property>
+      <obj_property name="ObjectShortName">START</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[1].col[0].PE_inst /MULT_ADD" type="logic">
+      <obj_property name="ElementShortName">MULT_ADD</obj_property>
+      <obj_property name="ObjectShortName">MULT_ADD</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[1].col[0].PE_inst /down" type="array">
+      <obj_property name="ElementShortName">down[15:0]</obj_property>
+      <obj_property name="ObjectShortName">down[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[1].col[0].PE_inst /right" type="array">
+      <obj_property name="ElementShortName">right[15:0]</obj_property>
+      <obj_property name="ObjectShortName">right[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[1].col[0].PE_inst /prod" type="array">
+      <obj_property name="ElementShortName">prod[31:0]</obj_property>
+      <obj_property name="ObjectShortName">prod[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[1].col[0].PE_inst /psum" type="array">
+      <obj_property name="ElementShortName">psum[31:0]</obj_property>
+      <obj_property name="ObjectShortName">psum[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[0].PE_inst /reset" type="logic">
+      <obj_property name="ElementShortName">reset</obj_property>
+      <obj_property name="ObjectShortName">reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[0].PE_inst /clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[0].PE_inst /up" type="array">
+      <obj_property name="ElementShortName">up[15:0]</obj_property>
+      <obj_property name="ObjectShortName">up[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[0].PE_inst /left" type="array">
+      <obj_property name="ElementShortName">left[15:0]</obj_property>
+      <obj_property name="ObjectShortName">left[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[0].PE_inst /START" type="logic">
+      <obj_property name="ElementShortName">START</obj_property>
+      <obj_property name="ObjectShortName">START</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[0].PE_inst /MULT_ADD" type="logic">
+      <obj_property name="ElementShortName">MULT_ADD</obj_property>
+      <obj_property name="ObjectShortName">MULT_ADD</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[0].PE_inst /down" type="array">
+      <obj_property name="ElementShortName">down[15:0]</obj_property>
+      <obj_property name="ObjectShortName">down[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[0].PE_inst /right" type="array">
+      <obj_property name="ElementShortName">right[15:0]</obj_property>
+      <obj_property name="ObjectShortName">right[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[0].PE_inst /prod" type="array">
+      <obj_property name="ElementShortName">prod[31:0]</obj_property>
+      <obj_property name="ObjectShortName">prod[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[0].PE_inst /psum" type="array">
+      <obj_property name="ElementShortName">psum[31:0]</obj_property>
+      <obj_property name="ObjectShortName">psum[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[0].PE_inst /bit_width" type="array">
+      <obj_property name="ElementShortName">bit_width[31:0]</obj_property>
+      <obj_property name="ObjectShortName">bit_width[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[0].PE_inst /FRAC_BITS" type="array">
+      <obj_property name="ElementShortName">FRAC_BITS[31:0]</obj_property>
+      <obj_property name="ObjectShortName">FRAC_BITS[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[0].PE_inst /mat_size" type="array">
+      <obj_property name="ElementShortName">mat_size[31:0]</obj_property>
+      <obj_property name="ObjectShortName">mat_size[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[0].PE_inst /pos_row" type="array">
+      <obj_property name="ElementShortName">pos_row[31:0]</obj_property>
+      <obj_property name="ObjectShortName">pos_row[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[0].PE_inst /pos_col" type="array">
+      <obj_property name="ElementShortName">pos_col[31:0]</obj_property>
+      <obj_property name="ObjectShortName">pos_col[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[1].PE_inst /reset" type="logic">
+      <obj_property name="ElementShortName">reset</obj_property>
+      <obj_property name="ObjectShortName">reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[1].PE_inst /clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[1].PE_inst /up" type="array">
+      <obj_property name="ElementShortName">up[15:0]</obj_property>
+      <obj_property name="ObjectShortName">up[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[1].PE_inst /left" type="array">
+      <obj_property name="ElementShortName">left[15:0]</obj_property>
+      <obj_property name="ObjectShortName">left[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[1].PE_inst /START" type="logic">
+      <obj_property name="ElementShortName">START</obj_property>
+      <obj_property name="ObjectShortName">START</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[1].PE_inst /MULT_ADD" type="logic">
+      <obj_property name="ElementShortName">MULT_ADD</obj_property>
+      <obj_property name="ObjectShortName">MULT_ADD</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[1].PE_inst /down" type="array">
+      <obj_property name="ElementShortName">down[15:0]</obj_property>
+      <obj_property name="ObjectShortName">down[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[1].PE_inst /right" type="array">
+      <obj_property name="ElementShortName">right[15:0]</obj_property>
+      <obj_property name="ObjectShortName">right[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[1].PE_inst /prod" type="array">
+      <obj_property name="ElementShortName">prod[31:0]</obj_property>
+      <obj_property name="ObjectShortName">prod[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[1].PE_inst /psum" type="array">
+      <obj_property name="ElementShortName">psum[31:0]</obj_property>
+      <obj_property name="ObjectShortName">psum[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[1].PE_inst /bit_width" type="array">
+      <obj_property name="ElementShortName">bit_width[31:0]</obj_property>
+      <obj_property name="ObjectShortName">bit_width[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[1].PE_inst /FRAC_BITS" type="array">
+      <obj_property name="ElementShortName">FRAC_BITS[31:0]</obj_property>
+      <obj_property name="ObjectShortName">FRAC_BITS[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[1].PE_inst /mat_size" type="array">
+      <obj_property name="ElementShortName">mat_size[31:0]</obj_property>
+      <obj_property name="ObjectShortName">mat_size[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[1].PE_inst /pos_row" type="array">
+      <obj_property name="ElementShortName">pos_row[31:0]</obj_property>
+      <obj_property name="ObjectShortName">pos_row[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[1].PE_inst /pos_col" type="array">
+      <obj_property name="ElementShortName">pos_col[31:0]</obj_property>
+      <obj_property name="ObjectShortName">pos_col[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[2].PE_inst /reset" type="logic">
+      <obj_property name="ElementShortName">reset</obj_property>
+      <obj_property name="ObjectShortName">reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[2].PE_inst /clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[2].PE_inst /up" type="array">
+      <obj_property name="ElementShortName">up[15:0]</obj_property>
+      <obj_property name="ObjectShortName">up[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[2].PE_inst /left" type="array">
+      <obj_property name="ElementShortName">left[15:0]</obj_property>
+      <obj_property name="ObjectShortName">left[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[2].PE_inst /START" type="logic">
+      <obj_property name="ElementShortName">START</obj_property>
+      <obj_property name="ObjectShortName">START</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[2].PE_inst /MULT_ADD" type="logic">
+      <obj_property name="ElementShortName">MULT_ADD</obj_property>
+      <obj_property name="ObjectShortName">MULT_ADD</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[2].PE_inst /down" type="array">
+      <obj_property name="ElementShortName">down[15:0]</obj_property>
+      <obj_property name="ObjectShortName">down[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[2].PE_inst /right" type="array">
+      <obj_property name="ElementShortName">right[15:0]</obj_property>
+      <obj_property name="ObjectShortName">right[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[2].PE_inst /prod" type="array">
+      <obj_property name="ElementShortName">prod[31:0]</obj_property>
+      <obj_property name="ObjectShortName">prod[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[2].PE_inst /psum" type="array">
+      <obj_property name="ElementShortName">psum[31:0]</obj_property>
+      <obj_property name="ObjectShortName">psum[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[2].PE_inst /bit_width" type="array">
+      <obj_property name="ElementShortName">bit_width[31:0]</obj_property>
+      <obj_property name="ObjectShortName">bit_width[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[2].PE_inst /FRAC_BITS" type="array">
+      <obj_property name="ElementShortName">FRAC_BITS[31:0]</obj_property>
+      <obj_property name="ObjectShortName">FRAC_BITS[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[2].PE_inst /mat_size" type="array">
+      <obj_property name="ElementShortName">mat_size[31:0]</obj_property>
+      <obj_property name="ObjectShortName">mat_size[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[2].PE_inst /pos_row" type="array">
+      <obj_property name="ElementShortName">pos_row[31:0]</obj_property>
+      <obj_property name="ObjectShortName">pos_row[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[0].col[2].PE_inst /pos_col" type="array">
+      <obj_property name="ElementShortName">pos_col[31:0]</obj_property>
+      <obj_property name="ObjectShortName">pos_col[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[4].col[2].PE_inst /reset" type="logic">
+      <obj_property name="ElementShortName">reset</obj_property>
+      <obj_property name="ObjectShortName">reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[4].col[2].PE_inst /clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[4].col[2].PE_inst /up" type="array">
+      <obj_property name="ElementShortName">up[15:0]</obj_property>
+      <obj_property name="ObjectShortName">up[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[4].col[2].PE_inst /left" type="array">
+      <obj_property name="ElementShortName">left[15:0]</obj_property>
+      <obj_property name="ObjectShortName">left[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[4].col[2].PE_inst /START" type="logic">
+      <obj_property name="ElementShortName">START</obj_property>
+      <obj_property name="ObjectShortName">START</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[4].col[2].PE_inst /MULT_ADD" type="logic">
+      <obj_property name="ElementShortName">MULT_ADD</obj_property>
+      <obj_property name="ObjectShortName">MULT_ADD</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[4].col[2].PE_inst /down" type="array">
+      <obj_property name="ElementShortName">down[15:0]</obj_property>
+      <obj_property name="ObjectShortName">down[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[4].col[2].PE_inst /right" type="array">
+      <obj_property name="ElementShortName">right[15:0]</obj_property>
+      <obj_property name="ObjectShortName">right[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[4].col[2].PE_inst /prod" type="array">
+      <obj_property name="ElementShortName">prod[31:0]</obj_property>
+      <obj_property name="ObjectShortName">prod[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[4].col[2].PE_inst /psum" type="array">
+      <obj_property name="ElementShortName">psum[31:0]</obj_property>
+      <obj_property name="ObjectShortName">psum[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[4].col[2].PE_inst /bit_width" type="array">
+      <obj_property name="ElementShortName">bit_width[31:0]</obj_property>
+      <obj_property name="ObjectShortName">bit_width[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[4].col[2].PE_inst /FRAC_BITS" type="array">
+      <obj_property name="ElementShortName">FRAC_BITS[31:0]</obj_property>
+      <obj_property name="ObjectShortName">FRAC_BITS[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[4].col[2].PE_inst /mat_size" type="array">
+      <obj_property name="ElementShortName">mat_size[31:0]</obj_property>
+      <obj_property name="ObjectShortName">mat_size[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[4].col[2].PE_inst /pos_row" type="array">
+      <obj_property name="ElementShortName">pos_row[31:0]</obj_property>
+      <obj_property name="ObjectShortName">pos_row[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[4].col[2].PE_inst /pos_col" type="array">
+      <obj_property name="ElementShortName">pos_col[31:0]</obj_property>
+      <obj_property name="ObjectShortName">pos_col[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[4].col[3].PE_inst /reset" type="logic">
+      <obj_property name="ElementShortName">reset</obj_property>
+      <obj_property name="ObjectShortName">reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[4].col[3].PE_inst /clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[4].col[3].PE_inst /up" type="array">
+      <obj_property name="ElementShortName">up[15:0]</obj_property>
+      <obj_property name="ObjectShortName">up[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[4].col[3].PE_inst /left" type="array">
+      <obj_property name="ElementShortName">left[15:0]</obj_property>
+      <obj_property name="ObjectShortName">left[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[4].col[3].PE_inst /START" type="logic">
+      <obj_property name="ElementShortName">START</obj_property>
+      <obj_property name="ObjectShortName">START</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[4].col[3].PE_inst /MULT_ADD" type="logic">
+      <obj_property name="ElementShortName">MULT_ADD</obj_property>
+      <obj_property name="ObjectShortName">MULT_ADD</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[4].col[3].PE_inst /down" type="array">
+      <obj_property name="ElementShortName">down[15:0]</obj_property>
+      <obj_property name="ObjectShortName">down[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[4].col[3].PE_inst /right" type="array">
+      <obj_property name="ElementShortName">right[15:0]</obj_property>
+      <obj_property name="ObjectShortName">right[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[4].col[3].PE_inst /prod" type="array">
+      <obj_property name="ElementShortName">prod[31:0]</obj_property>
+      <obj_property name="ObjectShortName">prod[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[4].col[3].PE_inst /psum" type="array">
+      <obj_property name="ElementShortName">psum[31:0]</obj_property>
+      <obj_property name="ObjectShortName">psum[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[4].col[3].PE_inst /bit_width" type="array">
+      <obj_property name="ElementShortName">bit_width[31:0]</obj_property>
+      <obj_property name="ObjectShortName">bit_width[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[4].col[3].PE_inst /FRAC_BITS" type="array">
+      <obj_property name="ElementShortName">FRAC_BITS[31:0]</obj_property>
+      <obj_property name="ObjectShortName">FRAC_BITS[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[4].col[3].PE_inst /mat_size" type="array">
+      <obj_property name="ElementShortName">mat_size[31:0]</obj_property>
+      <obj_property name="ObjectShortName">mat_size[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[4].col[3].PE_inst /pos_row" type="array">
+      <obj_property name="ElementShortName">pos_row[31:0]</obj_property>
+      <obj_property name="ObjectShortName">pos_row[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[4].col[3].PE_inst /pos_col" type="array">
+      <obj_property name="ElementShortName">pos_col[31:0]</obj_property>
+      <obj_property name="ObjectShortName">pos_col[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[4].col[4].PE_inst /reset" type="logic">
+      <obj_property name="ElementShortName">reset</obj_property>
+      <obj_property name="ObjectShortName">reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[4].col[4].PE_inst /clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[4].col[4].PE_inst /up" type="array">
+      <obj_property name="ElementShortName">up[15:0]</obj_property>
+      <obj_property name="ObjectShortName">up[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[4].col[4].PE_inst /left" type="array">
+      <obj_property name="ElementShortName">left[15:0]</obj_property>
+      <obj_property name="ObjectShortName">left[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[4].col[4].PE_inst /START" type="logic">
+      <obj_property name="ElementShortName">START</obj_property>
+      <obj_property name="ObjectShortName">START</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[4].col[4].PE_inst /MULT_ADD" type="logic">
+      <obj_property name="ElementShortName">MULT_ADD</obj_property>
+      <obj_property name="ObjectShortName">MULT_ADD</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[4].col[4].PE_inst /down" type="array">
+      <obj_property name="ElementShortName">down[15:0]</obj_property>
+      <obj_property name="ObjectShortName">down[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[4].col[4].PE_inst /right" type="array">
+      <obj_property name="ElementShortName">right[15:0]</obj_property>
+      <obj_property name="ObjectShortName">right[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[4].col[4].PE_inst /prod" type="array">
+      <obj_property name="ElementShortName">prod[31:0]</obj_property>
+      <obj_property name="ObjectShortName">prod[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[4].col[4].PE_inst /psum" type="array">
+      <obj_property name="ElementShortName">psum[31:0]</obj_property>
+      <obj_property name="ObjectShortName">psum[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[4].col[4].PE_inst /bit_width" type="array">
+      <obj_property name="ElementShortName">bit_width[31:0]</obj_property>
+      <obj_property name="ObjectShortName">bit_width[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[4].col[4].PE_inst /FRAC_BITS" type="array">
+      <obj_property name="ElementShortName">FRAC_BITS[31:0]</obj_property>
+      <obj_property name="ObjectShortName">FRAC_BITS[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[4].col[4].PE_inst /mat_size" type="array">
+      <obj_property name="ElementShortName">mat_size[31:0]</obj_property>
+      <obj_property name="ObjectShortName">mat_size[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[4].col[4].PE_inst /pos_row" type="array">
+      <obj_property name="ElementShortName">pos_row[31:0]</obj_property>
+      <obj_property name="ObjectShortName">pos_row[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_cnn_top/dut/micro_torus/\row[4].col[4].PE_inst /pos_col" type="array">
+      <obj_property name="ElementShortName">pos_col[31:0]</obj_property>
+      <obj_property name="ObjectShortName">pos_col[31:0]</obj_property>
+   </wvobject>
+</wave_config>
