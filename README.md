@@ -132,8 +132,6 @@ graph TD
 ```
 FashionMnist_LeNet5/
 ├── README.md                      # Project documentation
-├── FashionMnist_LeNet5.xpr        # Xilinx Vivado Project File
-├── run_synthesis_bench.tcl        # Out-Of-Context Vivado Synthesis Script
 │
 ├── rtl/                           # SystemVerilog RTL Source Files
 │   ├── Controller.sv              # FSM Hardware Tile Controller
